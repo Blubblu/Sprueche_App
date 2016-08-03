@@ -2,7 +2,7 @@ package vhbandroidprogrammierung.de.spruecheapp;
 
 /**
  * Created by Patrick PC on 01.08.2016.
- * Zentrale Config-Datei für Konstaten
+ * Zentrale Config-Datei für Konstanten
  */
 public class Config {
 
