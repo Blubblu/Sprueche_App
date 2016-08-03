@@ -1,5 +1,6 @@
 package vhbandroidprogrammierung.de.spruecheapp;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -11,16 +12,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import vhbandroidprogrammierung.de.spruecheapp.Fragments.AllSayingsFragment;
-import vhbandroidprogrammierung.de.spruecheapp.Fragments.RandomSayingFragment;
+import vhbandroidprogrammierung.de.spruecheapp.Fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
     private Toolbar toolbar;
@@ -35,7 +34,11 @@ public class MainActivity extends AppCompatActivity
 
         initToolbar();
         initDrawer();
-        initTabs();
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+//        initTabs();
         initFab();
     }
 
@@ -56,10 +59,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initTabs() {
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+       /* tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         int[] tabIcons = {
@@ -72,13 +74,13 @@ public class MainActivity extends AppCompatActivity
             tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         } catch (Exception e) {
             Log.e(TAG, "initTabs: Error at loading Tab Icons");
-        }
+        }*/
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new RandomSayingFragment(), getString(R.string.random));
-        adapter.addFragment(new AllSayingsFragment(), getString(R.string.all));
+        adapter.addFragment(new HomeFragment(), getString(R.string.home));
+//        adapter.addFragment(new AllSayingsFragment(), getString(R.string.all));
         viewPager.setAdapter(adapter);
     }
 
@@ -136,6 +138,11 @@ public class MainActivity extends AppCompatActivity
 
     private void toaster(String text) {
         Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
 
