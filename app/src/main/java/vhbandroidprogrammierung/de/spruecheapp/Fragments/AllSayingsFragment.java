@@ -1,10 +1,12 @@
-package vhbandroidprogrammierung.de.spruecheapp;
+package vhbandroidprogrammierung.de.spruecheapp.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import vhbandroidprogrammierung.de.spruecheapp.R;
 
 
 public class AllSayingsFragment extends Fragment {

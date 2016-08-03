@@ -14,6 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import vhbandroidprogrammierung.de.spruecheapp.Fragments.AllSayingsFragment;
+import vhbandroidprogrammierung.de.spruecheapp.Fragments.RandomSayingFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +45,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initDrawer() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -86,6 +91,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+
     }
 
 
@@ -103,24 +109,33 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-
-        } else if (id == R.id.nav_fav_sayings) {
-
-        } else if (id == R.id.nav_user_sayings) {
-
-        } else if (id == R.id.nav_settings) {
-
-        } else if (id == R.id.nav_about) {
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                toaster("home");
+                break;
+            case R.id.nav_fav_sayings:
+                toaster("fav");
+                break;
+            case R.id.nav_user_sayings:
+                toaster("user");
+                break;
+            case R.id.nav_settings:
+                toaster("settings");
+                break;
+            case R.id.nav_about:
+                toaster("about");
+                break;
+            default:
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void toaster(String text) {
+        Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
     }
 }
 
