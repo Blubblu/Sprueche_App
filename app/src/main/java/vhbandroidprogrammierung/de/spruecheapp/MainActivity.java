@@ -1,13 +1,12 @@
 package vhbandroidprogrammierung.de.spruecheapp;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,16 +15,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import vhbandroidprogrammierung.de.spruecheapp.Fragments.FavFragment;
 import vhbandroidprogrammierung.de.spruecheapp.Fragments.HomeFragment;
+import vhbandroidprogrammierung.de.spruecheapp.Fragments.UserSayingsFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
     private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private DrawerLayout drawer;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +35,15 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         initToolbar();
+        initFragment();
         initDrawer();
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-//        initTabs();
         initFab();
+    }
+
+    private void initFragment() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
     }
 
     private void initToolbar() {
@@ -48,41 +52,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initDrawer() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
     }
 
-    private void initTabs() {
-
-
-       /* tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-
-        int[] tabIcons = {
-                R.drawable.ic_shuffle_variant_white_48dp,
-                R.drawable.ic_view_list_white_48dp,
-        };
-
-        try {
-            tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-            tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        } catch (Exception e) {
-            Log.e(TAG, "initTabs: Error at loading Tab Icons");
-        }*/
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HomeFragment(), getString(R.string.home));
-//        adapter.addFragment(new AllSayingsFragment(), getString(R.string.all));
-        viewPager.setAdapter(adapter);
-    }
 
     private void initFab() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -111,22 +90,26 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        drawerLayout.closeDrawers();
 
         switch (item.getItemId()) {
             case R.id.nav_home:
-                toaster("home");
+                FragmentTransaction homeFragmentTransaction = fragmentManager.beginTransaction();
+                homeFragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
                 break;
             case R.id.nav_fav_sayings:
-                toaster("fav");
+                FragmentTransaction favFragmentTransaction = fragmentManager.beginTransaction();
+                favFragmentTransaction.replace(R.id.containerView, new FavFragment()).commit();
                 break;
             case R.id.nav_user_sayings:
-                toaster("user");
+                FragmentTransaction userFragmentTransaction = fragmentManager.beginTransaction();
+                userFragmentTransaction.replace(R.id.containerView, new UserSayingsFragment()).commit();
                 break;
             case R.id.nav_settings:
-                toaster("settings");
+                toaster("Settings");
                 break;
             case R.id.nav_about:
-                toaster("about");
+                toaster("About");
                 break;
             default:
         }
@@ -138,11 +121,6 @@ public class MainActivity extends AppCompatActivity
 
     private void toaster(String text) {
         Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }
 
