@@ -12,4 +12,7 @@
     <string name="ss_16">Sommersemester 2016</string>
     <string name="topic">Mobile Apps für Android</string>
     <string name="sayings">Sprüche</string>
+    <string name="random">Zufällig</string>
+    <string name="all">Alle</string>
+
 </resources>
