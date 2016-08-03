@@ -21,6 +21,5 @@ public class FavFragment extends Fragment {
         View x =  inflater.inflate(R.layout.fragment_fav_sayings,null);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.fav_sayings);
         return x;
-
     }
 }
