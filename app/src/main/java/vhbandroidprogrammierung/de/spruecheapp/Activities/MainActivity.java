@@ -1,4 +1,4 @@
-package vhbandroidprogrammierung.de.spruecheapp;
+package vhbandroidprogrammierung.de.spruecheapp.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import vhbandroidprogrammierung.de.spruecheapp.Fragments.FavFragment;
 import vhbandroidprogrammierung.de.spruecheapp.Fragments.HomeFragment;
 import vhbandroidprogrammierung.de.spruecheapp.Fragments.UserSayingsFragment;
+import vhbandroidprogrammierung.de.spruecheapp.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

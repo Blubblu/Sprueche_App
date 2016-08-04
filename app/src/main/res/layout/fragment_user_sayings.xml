@@ -5,7 +5,7 @@
     android:paddingTop="?android:attr/actionBarSize"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="vhbandroidprogrammierung.de.spruecheapp.MainActivity">
+    tools:context=".Activities.MainActivity">
 
     <TextView
         android:id="@+id/textView"

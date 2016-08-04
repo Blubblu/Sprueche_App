@@ -1,4 +1,4 @@
-package vhbandroidprogrammierung.de.spruecheapp;
+package vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff;
 
 /**
  * Adapter that is assigned to the RecyclerView
@@ -15,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+
+import vhbandroidprogrammierung.de.spruecheapp.R;
+import vhbandroidprogrammierung.de.spruecheapp.Saying;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {

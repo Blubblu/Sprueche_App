@@ -1,10 +1,14 @@
-package vhbandroidprogrammierung.de.spruecheapp;
+package vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
+import vhbandroidprogrammierung.de.spruecheapp.R;
+import vhbandroidprogrammierung.de.spruecheapp.Saying;
 
 public class ViewHolderSaying extends ViewHolder implements View.OnClickListener {
 

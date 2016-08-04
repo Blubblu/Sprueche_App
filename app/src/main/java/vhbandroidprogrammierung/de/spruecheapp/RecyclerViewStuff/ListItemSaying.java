@@ -1,4 +1,4 @@
-package vhbandroidprogrammierung.de.spruecheapp;
+package vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff;
 
 
 public interface ListItemSaying {

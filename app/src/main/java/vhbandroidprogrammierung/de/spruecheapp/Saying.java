@@ -1,5 +1,7 @@
 package vhbandroidprogrammierung.de.spruecheapp;
 
+import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.ListItemSaying;
+
 /**
  * Created by Patrick PC on 04.08.2016.
  */
