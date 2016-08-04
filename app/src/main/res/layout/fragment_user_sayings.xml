@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="48dp">
-
+    android:paddingTop="?android:attr/actionBarSize"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="vhbandroidprogrammierung.de.spruecheapp.MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:id="@+id/textView"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="EIGENE SPRÜCHE"
         android:textColor="@android:color/holo_blue_dark"
-        android:text="EIGENE SPRÜCHE"/>
+        android:textSize="30sp" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_user_sayings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_plus_white_48dp" />
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
