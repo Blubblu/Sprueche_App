@@ -15,6 +15,7 @@ import com.cjj.MaterialRefreshListener;
 
 import java.util.ArrayList;
 
+import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreator;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
@@ -38,7 +39,10 @@ public class AllSayingsFragment extends Fragment {
         context = getContext();
 
         initRecyclerView();
-        initRefreshLayout();
+
+        if (Config.allowRefreshLayout) {
+            initRefreshLayout();
+        }
 
         return view;
     }
@@ -58,7 +62,7 @@ public class AllSayingsFragment extends Fragment {
                 materialRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                            materialRefreshLayout.finishRefresh();
+                        materialRefreshLayout.finishRefresh();
 
                     }
                 }, 3000);
@@ -76,7 +80,7 @@ public class AllSayingsFragment extends Fragment {
         });
 
         // Refresh fertig
-            materialRefreshLayout.finishRefresh();
+        materialRefreshLayout.finishRefresh();
     }
 
     private void initRecyclerView() {
