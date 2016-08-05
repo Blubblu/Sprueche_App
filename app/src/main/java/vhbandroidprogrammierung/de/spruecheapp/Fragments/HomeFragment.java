@@ -22,24 +22,16 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /**
-         *Inflate tab_layout and setup Views.
-         */
-        View x =  inflater.inflate(R.layout.fragment_home,null);
-        tabLayout = (TabLayout) x.findViewById(R.id.tabs);
-        viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        View view =  inflater.inflate(R.layout.fragment_home,null);
 
-        /**
-         *Set an Apater for the View Pager
-         */
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
         /**
-         * Now , this is a workaround ,
-         * The setupWithViewPager dose't works without the runnable .
-         * Maybe a Support Library Bug .
+         * Das Runnable ist notwendig. Evtl. Bug in der SupportLibary
          */
-
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -47,7 +39,26 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        return x;
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+               if(tab.getPosition() == 0) {
+
+               }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        return view;
 
     }
 

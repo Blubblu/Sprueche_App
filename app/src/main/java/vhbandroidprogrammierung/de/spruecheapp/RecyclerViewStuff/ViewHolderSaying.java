@@ -1,6 +1,10 @@
 package vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,7 +39,7 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
         //iv_user_saying = (ImageView) this.view.findViewById(R.id.iv_user);
 
         iv_favorite.setOnClickListener(this);
-       // iv_user_saying.setOnClickListener(this);
+        // iv_user_saying.setOnClickListener(this);
     }
 
     /**
@@ -52,13 +56,34 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
         boolean isFavorite = ((Saying) item).isFavorite();
         boolean isUserSaying = ((Saying) item).isUserSaying();
 
+        favIonColorChange(isFavorite);
+
         tv_saying.setText(saying);
         tv_author.setText(author);
         tv_category.setText(category);
 
-        if(isFavorite) {
+        if (isFavorite) {
             //TODO/ Filled star Image
         }
+    }
+
+    /**
+     * Wenn der Spruch ein Favorit ist, ist das Icon orange, ansonsten grau und ohne Füllung
+     */
+    private void favIonColorChange(boolean isFavorite) {
+
+        if (!isFavorite) {
+            Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_star_outline_grey600_48dp, null);
+            iv_favorite.setImageDrawable(drawable);
+        } else {
+            Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_star_white_48dp, null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                int color = ContextCompat.getColor(context, R.color.orange);
+                drawable.setTint(color);
+            }
+            iv_favorite.setImageDrawable(drawable);
+        }
+
     }
 
 

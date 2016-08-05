@@ -3,7 +3,7 @@
     android:id="@+id/cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/cardview_margin">
+    android:layout_margin="10dp">
 
     <RelativeLayout
         android:id="@+id/relative"
@@ -31,6 +31,7 @@
             android:textSize="20sp"
             android:textStyle="italic" />
 
+
         <TextView
             android:id="@+id/tv_category"
             android:layout_width="wrap_content"
@@ -38,6 +39,11 @@
             android:layout_below="@id/tv_saying"
             android:layout_marginLeft="50dp"
             android:layout_toRightOf="@id/tv_author"
+            android:background="@drawable/rounded_corner"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
             android:singleLine="true"
             android:textSize="10sp" />
 
@@ -48,7 +54,6 @@
             android:layout_below="@id/tv_category"
             android:layout_gravity="center"
             android:src="@drawable/ic_star_grey600_48dp" />
-
 
 
     </RelativeLayout>
