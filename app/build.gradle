@@ -34,4 +34,5 @@ dependencies {
     // THIRD PARTY
     compile 'com.cjj.materialrefeshlayout:library:1.3.0'
     compile 'com.github.brnunes:swipeablerecyclerview:1.0.1'
+    compile files('libs/fabscrollanimations.jar')
 }

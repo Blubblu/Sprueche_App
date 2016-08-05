@@ -113,5 +113,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_shuffle_variant_white_48dp"
         app:layout_anchor="@id/ll_bottom_items"
-        app:layout_anchorGravity="center_horizontal" />
+        app:layout_anchorGravity="center_horizontal"
+       />
 </android.support.design.widget.CoordinatorLayout>

@@ -90,20 +90,6 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
      */
     private void initRecyclerView() {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_user_sayings);
-
-        // FAB verstecken, wenn nach unten gescrollt wird, wieder zeigen wenn hoch gescrollt wird
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                // Hoch scrollen, erster Punkt ist größer als zweiter Punkt
-                if (dy < dx)
-                    fab.show();
-                    // Runter scrollen
-                else if (dy > dx)
-                    fab.hide();
-            }
-        });
         userSayingArrayList = new ArrayList<>();
 
         buildDemoSayings();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +12,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_user_sayings"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_plus_white_48dp" />
+        android:src="@drawable/ic_plus_white_48dp"
+        app:layout_behavior="com.marcoscg.fabscrollanimations.Float" />
 
 </android.support.design.widget.CoordinatorLayout>
