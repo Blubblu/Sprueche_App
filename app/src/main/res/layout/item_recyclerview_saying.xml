@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="false"
-            android:textSize="20sp"
+            android:textSize="@dimen/saying_card_text_size"
              />
 
         <TextView
@@ -66,7 +66,6 @@
                     android:id="@+id/tv_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:background="@drawable/rounded_corner"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"

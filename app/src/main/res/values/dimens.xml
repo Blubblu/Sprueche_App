@@ -12,5 +12,9 @@
     <dimen name="custom_tab_layout_height">72dp</dimen>
     <dimen name="cardview_margin">15dp</dimen>
     <dimen name="padding_iv_bottom_nav">40dp</dimen>
+    <dimen name="random_saying_text_size">30sp</dimen>
+    <dimen name="random_saying_author_text_size">15sp</dimen>
+    <dimen name="random_saying_cat_text_size">12sp</dimen>
+    <dimen name="saying_card_text_size">20sp</dimen>
     <integer name="recycler_columns">1</integer>
 </resources>
