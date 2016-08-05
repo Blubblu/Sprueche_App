@@ -115,12 +115,12 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
     // TODO nur zu Demo-Zwecken
     private void buildDemoSayings() {
         userSayingArrayList.add(new Saying("AAA Glaube an Wunder, Liebe und Glück! Schau nach vorn und nicht zurück!\n" +
-                "AAA Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", "unbekannt", "Lebenssprüche ", true, false));
+                "AAA Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", "unbekannt", "Lebenssprüche ", true, true));
         userSayingArrayList.add(new Saying("\"BBB Lohnt es sich denn?\" fragt der Kopf.\n" +
-                "\"BBB Nein, aber es tut so gut!\" antwortet das Herz.", "unbekannt", "Lebenssprüche", true, false));
-        userSayingArrayList.add(new Saying("CCC Ein langer Streit beweist, dass beide Seiten Unrecht haben.", "Voltaire", "Charakter", true, false));
-        userSayingArrayList.add(new Saying("DDD Mütter lieben ihre Kinder mehr, als Väter es tun, weil sie sicher sein können, dass es ihre sind.", "Aristoteles", "Taufe ", false, false));
-        userSayingArrayList.add(new Saying("EEE Ich wünschte ich könnte, aber ich will nicht!", "unbekannt", "Filmzitat ", false, false));
+                "\"BBB Nein, aber es tut so gut!\" antwortet das Herz.", "unbekannt", "Lebenssprüche", true, true));
+        userSayingArrayList.add(new Saying("CCC Ein langer Streit beweist, dass beide Seiten Unrecht haben.", "Voltaire", "Charakter", true, true));
+        userSayingArrayList.add(new Saying("DDD Mütter lieben ihre Kinder mehr, als Väter es tun, weil sie sicher sein können, dass es ihre sind.", "Aristoteles", "Taufe ", false, true));
+        userSayingArrayList.add(new Saying("EEE Ich wünschte ich könnte, aber ich will nicht!", "unbekannt", "Filmzitat ", false, true));
     }
 
     /**

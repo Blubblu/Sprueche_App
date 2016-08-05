@@ -58,7 +58,8 @@ public class AllSayingsFragment extends Fragment {
                 materialRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        materialRefreshLayout.finishRefresh();
+                            materialRefreshLayout.finishRefresh();
+
                     }
                 }, 3000);
             }
@@ -75,9 +76,7 @@ public class AllSayingsFragment extends Fragment {
         });
 
         // Refresh fertig
-        materialRefreshLayout.finishRefresh();
-
-
+            materialRefreshLayout.finishRefresh();
     }
 
     private void initRecyclerView() {
@@ -96,7 +95,7 @@ public class AllSayingsFragment extends Fragment {
                 "Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", "unbekannt", "Lebenssprüche ", true, false));
         sayingArrayList.add(new Saying("\"Lohnt es sich denn?\" fragt der Kopf.\n" +
                 "\"Nein, aber es tut so gut!\" antwortet das Herz.", "unbekannt", "Lebenssprüche", true, false));
-        sayingArrayList.add(new Saying("Ein langer Streit beweist, dass beide Seiten Unrecht haben.", "Voltaire", "Charakter", true, false));
+        sayingArrayList.add(new Saying("Ein langer Streit beweist, dass beide Seiten Unrecht haben.", "Voltaire", "Charakter", true, true));
         sayingArrayList.add(new Saying("Mütter lieben ihre Kinder mehr, als Väter es tun, weil sie sicher sein können, dass es ihre sind.", "Aristoteles", "Taufe ", false, false));
         sayingArrayList.add(new Saying("Ich wünschte ich könnte, aber ich will nicht!", "unbekannt", "Filmzitat ", false, false));
     }

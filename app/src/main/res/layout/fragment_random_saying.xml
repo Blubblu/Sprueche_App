@@ -17,19 +17,20 @@
 
         <RelativeLayout
             android:id="@+id/relative"
-            android:padding="@dimen/cardview_margin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFF"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/cardview_margin">
 
             <TextView
                 android:id="@+id/tv_saying_random"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
                 android:singleLine="false"
                 android:text="Tu was du willst, und steh dazu; denn dein Leben lebst nur du!"
-                android:layout_marginBottom="5dp"
                 android:textSize="30sp" />
 
             <TextView
@@ -37,9 +38,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_saying_random"
+                android:layout_marginLeft="10dp"
                 android:singleLine="true"
                 android:text="unbekannt"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="italic" />
 
             <TextView
@@ -48,10 +50,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_saying_random"
                 android:layout_marginLeft="50dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/tv_author_random"
+                android:background="@drawable/rounded_corner"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
                 android:singleLine="true"
                 android:text="Lebenssprüche"
-                android:textSize="10sp" />
+                android:textColor="@color/white"
+                android:textSize="12sp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

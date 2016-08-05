@@ -54,7 +54,7 @@ public class FavFragment extends Fragment {
                 "AAA Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", "unbekannt", "Lebenssprüche ", true, false));
         favSayingArrayList.add(new Saying("\"BBB Lohnt es sich denn?\" fragt der Kopf.\n" +
                 "\"BBB Nein, aber es tut so gut!\" antwortet das Herz.", "unbekannt", "Lebenssprüche", true, false));
-        favSayingArrayList.add(new Saying("CCC Ein langer Streit beweist, dass beide Seiten Unrecht haben.", "Voltaire", "Charakter", true, false));
+        favSayingArrayList.add(new Saying("CCC Ein langer Streit beweist, dass beide Seiten Unrecht haben.", "Voltaire", "Charakter", true, true));
         favSayingArrayList.add(new Saying("DDD Mütter lieben ihre Kinder mehr, als Väter es tun, weil sie sicher sein können, dass es ihre sind.", "Aristoteles", "Taufe ", false, false));
         favSayingArrayList.add(new Saying("EEE Ich wünschte ich könnte, aber ich will nicht!", "unbekannt", "Filmzitat ", false, false));
     }

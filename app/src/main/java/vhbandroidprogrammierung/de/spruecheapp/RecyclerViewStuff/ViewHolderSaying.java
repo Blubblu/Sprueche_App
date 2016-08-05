@@ -36,10 +36,9 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
         tv_category = (TextView) this.view.findViewById(R.id.tv_category);
 
         iv_favorite = (ImageView) this.view.findViewById(R.id.iv_star);
-        //iv_user_saying = (ImageView) this.view.findViewById(R.id.iv_user);
+        iv_user_saying = (ImageView) this.view.findViewById(R.id.iv_user_saying);
 
-        iv_favorite.setOnClickListener(this);
-        // iv_user_saying.setOnClickListener(this);
+        iv_favorite.setOnClickListener(this);;
     }
 
     /**
@@ -57,6 +56,7 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
         boolean isUserSaying = ((Saying) item).isUserSaying();
 
         favIonColorChange(isFavorite);
+        userIconChange(isUserSaying);
 
         tv_saying.setText(saying);
         tv_author.setText(author);
@@ -68,15 +68,26 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
     }
 
     /**
+     * Wenn der Spruch ein eigener ist, das Icon einblenden, ansonsten vestecken
+     */
+    private void userIconChange(boolean isUserSaying) {
+        if (!isUserSaying) {
+            iv_user_saying.setVisibility(View.GONE);
+        } else {
+            iv_user_saying.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
      * Wenn der Spruch ein Favorit ist, ist das Icon orange, ansonsten grau und ohne Füllung
      */
     private void favIonColorChange(boolean isFavorite) {
 
         if (!isFavorite) {
-            Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_star_outline_grey600_48dp, null);
+            Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_star_outline_grey600_36dp, null);
             iv_favorite.setImageDrawable(drawable);
         } else {
-            Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_star_white_48dp, null);
+            Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_star_white_36dp, null);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 int color = ContextCompat.getColor(context, R.color.orange);
                 drawable.setTint(color);
