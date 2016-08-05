@@ -2,21 +2,17 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingTop="?android:attr/actionBarSize"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:paddingTop="?android:attr/actionBarSize"
     tools:context=".Activities.MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:text="EIGENE SPRÜCHE"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="30sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_user_sayings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_user_sayings"

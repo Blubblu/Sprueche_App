@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+
         }
     }
 
@@ -77,17 +78,18 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         drawerLayout.closeDrawers();
 
+        // Alle außer home auf den backStack legen um durch die Zurück-Taste auf der Hauptseite zu landen
         switch (item.getItemId()) {
             case R.id.nav_home:
                 FragmentTransaction homeFragmentTransaction = fragmentManager.beginTransaction();
                 homeFragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
                 break;
             case R.id.nav_fav_sayings:
-                FragmentTransaction favFragmentTransaction = fragmentManager.beginTransaction();
+                FragmentTransaction favFragmentTransaction = fragmentManager.beginTransaction().addToBackStack("fragback");
                 favFragmentTransaction.replace(R.id.containerView, new FavFragment()).commit();
                 break;
             case R.id.nav_user_sayings:
-                FragmentTransaction userFragmentTransaction = fragmentManager.beginTransaction();
+                FragmentTransaction userFragmentTransaction = fragmentManager.beginTransaction().addToBackStack("fragback");
                 userFragmentTransaction.replace(R.id.containerView, new UserSayingsFragment()).commit();
                 break;
             case R.id.nav_settings:
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity
     public void favStarHasBeenClicked(int pos, CardView cv) {
 
     }
+
 }
 
 

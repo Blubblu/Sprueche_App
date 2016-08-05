@@ -8,4 +8,5 @@ public class Config {
 
     public static final int NOTIFICATION_ID = 123;
     public static final int UPDATE_SAYINGS_AFTER_DAYS = 7;
+    public static final int fabAnimationTimeMS = 350;
 }

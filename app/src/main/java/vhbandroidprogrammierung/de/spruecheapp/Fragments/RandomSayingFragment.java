@@ -17,6 +17,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
 import vhbandroidprogrammierung.de.spruecheapp.Saying;
 
@@ -46,6 +47,11 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
     }
 
 
+    /**
+     * Setzt einen boolean wenn das Fragment sichtbar oder unsichtbar wird.
+     * FAB wird versteckt wenn das Fragment unsichtbar wird
+     * @param isVisibleToUser
+     */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -64,6 +70,9 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    /**
+     * FAB nach einem kurzen Delay einblenden
+     */
     private void animateFab() {
 
         fab.setVisibility(View.INVISIBLE);
@@ -79,7 +88,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
                     public void run() {
                         fab.show();
                     }
-                }, 350);
+                }, Config.fabAnimationTimeMS);
                 return true;
             }
         });
@@ -89,11 +98,11 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
     private void initUI() {
 
         /*
-        Schriftart ändern
+        Custom Font
         liegt in src/main/assets/fonts
          */
         tv_saying = (TextView) view.findViewById(R.id.tv_saying_random);
-        tv_saying.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/custom_font.ttf"));
+        tv_saying.setTypeface(Typeface.createFromAsset(getContext().getAssets(), getContext().getString(R.string.font_path)));
 
         this.iv_fav = (ImageView) view.findViewById(R.id.iv_favorite);
         this.iv_share = (ImageView) view.findViewById(R.id.iv_share);
@@ -137,7 +146,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
                 break;
 
             case R.id.fab_random_sayings:
-                //TODO Neuen Random Spruch
+                //TODO Neuen Random Spruch laden
                 break;
 
             default:

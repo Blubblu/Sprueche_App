@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 
 import java.util.ArrayList;
 
@@ -19,12 +23,13 @@ import vhbandroidprogrammierung.de.spruecheapp.Saying;
 
 public class AllSayingsFragment extends Fragment {
 
+    private static final String TAG = "AllSayingsFragment";
     private RecyclerView recyclerView;
     private ArrayList<Saying> sayingArrayList;
-    private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter recyclerAdapter;
     private Context context;
     private View view;
+    private MaterialRefreshLayout materialRefreshLayout;
 
     @Nullable
     @Override
@@ -33,8 +38,46 @@ public class AllSayingsFragment extends Fragment {
         context = getContext();
 
         initRecyclerView();
+        initRefreshLayout();
 
         return view;
+    }
+
+    /**
+     * Wenn die Liste ganz oben ist un man sie nach unten zieht, erscheint das Refresh Layout um die Datenbank von ihrer Quelle (Internet)zu updaten
+     */
+    private void initRefreshLayout() {
+        materialRefreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
+        materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
+                Log.i(TAG, "onRefresh: ");
+
+                //TODO Sprüche neu aus dem Internet laden
+
+                materialRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        materialRefreshLayout.finishRefresh();
+                    }
+                }, 3000);
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                Log.i(TAG, "onRefreshLoadMore: ");
+            }
+
+            @Override
+            public void onfinish() {
+                Log.i(TAG, "onfinish: ");
+            }
+        });
+
+        // Refresh fertig
+        materialRefreshLayout.finishRefresh();
+
+
     }
 
     private void initRecyclerView() {
@@ -47,6 +90,7 @@ public class AllSayingsFragment extends Fragment {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
+    // TODO Nur für Demo-Zwecke
     private void buildDemoSayings() {
         sayingArrayList.add(new Saying("Glaube an Wunder, Liebe und Glück! Schau nach vorn und nicht zurück!\n" +
                 "Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", "unbekannt", "Lebenssprüche ", true, false));
