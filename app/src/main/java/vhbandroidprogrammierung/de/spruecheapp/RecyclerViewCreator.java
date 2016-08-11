@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
 
+/**
+ * Zentrales Code Snippet zum erstllen von RecyclerViews, da wir diesen Part in mehreren Fragmenten brauchen.
+ */
 
 public class RecyclerViewCreator {
 

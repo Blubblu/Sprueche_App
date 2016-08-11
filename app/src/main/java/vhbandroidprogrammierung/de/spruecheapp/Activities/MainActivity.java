@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialisierungsmethoden
         initToolbar();
         initFragment();
         initDrawer();
@@ -61,18 +62,11 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-
-        }
-    }
-
-
+    /**
+     * Startet das Fragment, des geklickten NavigationDrawer Elements.
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -93,10 +87,10 @@ public class MainActivity extends AppCompatActivity
                 userFragmentTransaction.replace(R.id.containerView, new UserSayingsFragment()).commit();
                 break;
             case R.id.nav_settings:
-                toaster("Settings");
+                toaster("Settings", true);
                 break;
             case R.id.nav_about:
-                toaster("About");
+                toaster("About", true);
                 break;
             default:
         }
@@ -106,10 +100,23 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void toaster(String text) {
-        Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+    /**
+     * Gibt eine Toast-Nachricht aus.
+     * "true" übergeben, wenn der Toast lang sein soll, "false" fr kurz
+     * @param text, lengthLong
+     */
+    private void toaster(String text, boolean lengthLong) {
+
+        int length = lengthLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
+        Toast.makeText(MainActivity.this, text, length).show();
     }
 
+    /**
+     * Wird aufgerufen, wenn der Stern eines RecyclerView Elements in irgend einem Fragment geklickt wurde.
+     * TODO: Den "Favorit" Datenbankeintrag für den geklickten Spruch ändern.
+     * @param pos
+     * @param cv
+     */
     public void favStarHasBeenClicked(int pos, CardView cv) {
 
     }

@@ -40,6 +40,9 @@ public class AllSayingsFragment extends Fragment {
 
         initRecyclerView();
 
+        /*
+        Entscheidet, ob das RefreshLayout vorhanden sein soll, oder nicht.
+         */
         if (Config.allowRefreshLayout) {
             initRefreshLayout();
         }
@@ -48,7 +51,7 @@ public class AllSayingsFragment extends Fragment {
     }
 
     /**
-     * Wenn die Liste ganz oben ist un man sie nach unten zieht, erscheint das Refresh Layout um die Datenbank von ihrer Quelle (Internet)zu updaten
+     * Wenn die Liste ganz oben ist und man sie nach unten zieht, erscheint das RefreshLayout um die Datenbank von ihrer Quelle (Internet)zu updaten
      */
     private void initRefreshLayout() {
         materialRefreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
@@ -93,7 +96,7 @@ public class AllSayingsFragment extends Fragment {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-    // TODO Nur für Demo-Zwecke
+    // TODO Nur für Demo-Zwecke, bis wir die echten Sprüche einlesen können
     private void buildDemoSayings() {
         sayingArrayList.add(new Saying("Glaube an Wunder, Liebe und Glück! Schau nach vorn und nicht zurück!\n" +
                 "Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", "unbekannt", "Lebenssprüche ", true, false));

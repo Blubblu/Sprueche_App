@@ -15,6 +15,10 @@ import android.view.ViewGroup;
 import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
 
+/**
+ * Beinhaltet das TabLayout für das RandomSayingFragment und AllSayingsFragment
+ */
+
 public class HomeFragment extends Fragment {
 
     public static TabLayout tabLayout;
@@ -51,19 +55,14 @@ public class HomeFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 0) {
-
-                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
@@ -97,9 +96,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public int getCount() {
-
             return int_items;
-
         }
 
         /**

@@ -111,6 +111,7 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
 
     /**
      * Elmente im RecyclerView können nach links oder rechts weggewischt werden
+     * TODO: Gelöschte Elemente müssen wirklich gelöscht werden, im Moment tauchen sie nach dem swipe wieder auf
      * @param rv die RecyclerView
      */
     public void initSwipeableRecyclerViewTouchListener(RecyclerView rv) {

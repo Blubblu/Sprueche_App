@@ -38,6 +38,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
 
         this.view = inflater.inflate(R.layout.fragment_random_saying, null);
 
+        // Nur zu Testzwecken, um das Setzen den Fav-Booleans zu testen.
         currentSaying = new Saying();
         currentSaying.setFavorite(false);
 
