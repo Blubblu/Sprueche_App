@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity
      * "true" übergeben, wenn der Toast lang sein soll, "false" fr kurz
      * @param text, lengthLong
      */
-    private void toaster(String text, boolean lengthLong) {
+    public void toaster(String text, boolean lengthLong) {
 
         int length = lengthLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
         Toast.makeText(MainActivity.this, text, length).show();

@@ -1,6 +1,9 @@
 package vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff;
 
 
+import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
+import vhbandroidprogrammierung.de.spruecheapp.SayingCategory;
+
 public interface ListItemSaying {
 
     static final String TAG = "ListItemSaying";
@@ -11,9 +14,9 @@ public interface ListItemSaying {
      */
     String getSaying();
 
-    String getAuthor();
+    SayingAuthor getSayingAuthor();
 
-    String getCategory();
+    SayingCategory getSayingCategory();
 
     boolean isFavorite();
 
@@ -25,9 +28,9 @@ public interface ListItemSaying {
 
     void setSaying(String saying);
 
-    void setAuthor(String author);
+    void setSayingAuthor(SayingAuthor author);
 
-    void setCategory(String category);
+    void setSayingCategory(SayingCategory category);
 
     void setFavorite(boolean isFavorite);
 

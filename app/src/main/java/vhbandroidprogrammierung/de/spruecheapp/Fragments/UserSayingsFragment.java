@@ -1,10 +1,13 @@
 package vhbandroidprogrammierung.de.spruecheapp.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,16 +15,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreator;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
 import vhbandroidprogrammierung.de.spruecheapp.Saying;
+import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
+import vhbandroidprogrammierung.de.spruecheapp.SayingCategory;
 
 public class UserSayingsFragment extends Fragment implements View.OnClickListener {
 
@@ -32,6 +41,7 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
     private RecyclerAdapter recyclerAdapter;
     private View view;
     private Context context;
+
 
     @Nullable
     @Override
@@ -83,6 +93,7 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         //TODO FAB action
+        createUserSayingDialog();
     }
 
     /**
@@ -101,17 +112,14 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
     // TODO nur zu Demo-Zwecken
     private void buildDemoSayings() {
         userSayingArrayList.add(new Saying("AAA Glaube an Wunder, Liebe und Glück! Schau nach vorn und nicht zurück!\n" +
-                "AAA Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", "unbekannt", "Lebenssprüche ", true, true));
-        userSayingArrayList.add(new Saying("\"BBB Lohnt es sich denn?\" fragt der Kopf.\n" +
-                "\"BBB Nein, aber es tut so gut!\" antwortet das Herz.", "unbekannt", "Lebenssprüche", true, true));
-        userSayingArrayList.add(new Saying("CCC Ein langer Streit beweist, dass beide Seiten Unrecht haben.", "Voltaire", "Charakter", true, true));
-        userSayingArrayList.add(new Saying("DDD Mütter lieben ihre Kinder mehr, als Väter es tun, weil sie sicher sein können, dass es ihre sind.", "Aristoteles", "Taufe ", false, true));
-        userSayingArrayList.add(new Saying("EEE Ich wünschte ich könnte, aber ich will nicht!", "unbekannt", "Filmzitat ", false, true));
+                "AAA Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", new SayingAuthor("unbekannt"), new SayingCategory("Lebenssprüche"), true, true));
+
     }
 
     /**
      * Elmente im RecyclerView können nach links oder rechts weggewischt werden
      * TODO: Gelöschte Elemente müssen wirklich gelöscht werden, im Moment tauchen sie nach dem swipe wieder auf
+     *
      * @param rv die RecyclerView
      */
     public void initSwipeableRecyclerViewTouchListener(RecyclerView rv) {
@@ -142,5 +150,76 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         recyclerView.addOnItemTouchListener(swipeTouchListener);
     }
 
+    public void createUserSayingDialog() {
 
+        final View layout = LayoutInflater.from(context).inflate(R.layout.user_saying_dialog, null);
+        TextInputLayout textInputLayoutCategory = (TextInputLayout) layout.findViewById(R.id.til_new_category);
+
+        Spinner spinner = null;
+        initDialogSpinner(layout, spinner, textInputLayoutCategory);
+
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setTitle("Neuer Spruch");
+        dialog.setView(layout);
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+
+
+            }
+        }).setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        }).create();
+        dialog.show();
+    }
+
+    private void initDialogSpinner(View layout, Spinner spinner, final TextInputLayout tip) {
+
+        final List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("HallO");
+        spinnerArray.add("Test ");
+        spinnerArray.add("Baum");
+        spinnerArray.add("Auto");
+
+        spinnerArray.add("Neue Kategorie hinzufügen");
+
+
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,
+                android.R.layout.simple_spinner_dropdown_item,
+                spinnerArray);
+
+
+        spinner = (Spinner) layout.findViewById(R.id.spinner_dialog);
+        spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+            /*
+            Herausfinden, welches item ausgewählt wurde. Wenn es das letzte ist (Neue Kategorie), TODO: ...
+             */
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                // TextInputLayout für neue Kategorie sichtbar machen, wenn "Neue Kategorie" ausgewählt wurde
+                if (i == spinnerArray.size() - 1) {
+                    tip.setVisibility(View.VISIBLE);
+                } else {
+                    tip.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
 }
+
+

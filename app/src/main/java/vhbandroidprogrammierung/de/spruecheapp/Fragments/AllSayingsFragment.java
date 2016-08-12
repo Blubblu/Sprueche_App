@@ -20,6 +20,8 @@ import vhbandroidprogrammierung.de.spruecheapp.R;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreator;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
 import vhbandroidprogrammierung.de.spruecheapp.Saying;
+import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
+import vhbandroidprogrammierung.de.spruecheapp.SayingCategory;
 
 
 public class AllSayingsFragment extends Fragment {
@@ -99,11 +101,6 @@ public class AllSayingsFragment extends Fragment {
     // TODO Nur für Demo-Zwecke, bis wir die echten Sprüche einlesen können
     private void buildDemoSayings() {
         sayingArrayList.add(new Saying("Glaube an Wunder, Liebe und Glück! Schau nach vorn und nicht zurück!\n" +
-                "Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", "unbekannt", "Lebenssprüche ", true, false));
-        sayingArrayList.add(new Saying("\"Lohnt es sich denn?\" fragt der Kopf.\n" +
-                "\"Nein, aber es tut so gut!\" antwortet das Herz.", "unbekannt", "Lebenssprüche", true, false));
-        sayingArrayList.add(new Saying("Ein langer Streit beweist, dass beide Seiten Unrecht haben.", "Voltaire", "Charakter", true, true));
-        sayingArrayList.add(new Saying("Mütter lieben ihre Kinder mehr, als Väter es tun, weil sie sicher sein können, dass es ihre sind.", "Aristoteles", "Taufe ", false, false));
-        sayingArrayList.add(new Saying("Ich wünschte ich könnte, aber ich will nicht!", "unbekannt", "Filmzitat ", false, false));
+                "Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", new SayingAuthor("unbekannt"), new SayingCategory("Lebenssprüche"), true, false));
     }
 }

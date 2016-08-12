@@ -7,35 +7,37 @@ import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.ListItemSaying;
  */
 public class Saying implements ListItemSaying {
 
-    private String saying, author, category;
+    private String saying;
     private boolean isFavorite, isUserSaying;
+    private SayingAuthor sayingAuthor;
+    private SayingCategory sayingCategory;
 
     public Saying() {
         // empty
     }
 
-    public Saying(String saying, String author, String category, boolean isFavorite, boolean isUserSaying) {
+    public Saying(String saying, SayingAuthor author, SayingCategory category, boolean isFavorite, boolean isUserSaying) {
         this.saying = saying;
-        this.author = author;
-        this.category = category;
+        this.sayingAuthor = author;
+        this.sayingCategory = category;
         this.isFavorite = isFavorite;
         this.isUserSaying = isUserSaying;
     }
 
-    public String getAuthor() {
-        return author;
+    public SayingAuthor getSayingAuthor() {
+        return sayingAuthor;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setSayingAuthor(SayingAuthor sayingAuthor) {
+        this.sayingAuthor = sayingAuthor;
     }
 
-    public String getCategory() {
-        return category;
+    public SayingCategory getSayingCategory() {
+        return sayingCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setSayingCategory(SayingCategory sayingCategory) {
+        this.sayingCategory = sayingCategory;
     }
 
     public boolean isFavorite() {

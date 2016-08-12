@@ -49,8 +49,8 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
     public void bindType(ListItemSaying item) {
 
         String saying = ((Saying) item).getSaying();
-        String author = ((Saying) item).getAuthor();
-        String category = ((Saying) item).getCategory();
+        String author = ((Saying) item).getSayingAuthor().getAuthorName();
+        String category = ((Saying) item).getSayingCategory().getCategoryName();
 
         boolean isFavorite = ((Saying) item).isFavorite();
         boolean isUserSaying = ((Saying) item).isUserSaying();
