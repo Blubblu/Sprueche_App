@@ -89,7 +89,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
                     public void run() {
                         fab.show();
                     }
-                }, Config.fabAnimationTimeMS);
+                }, Config.FAB_ANIMATION_TIME);
                 return true;
             }
         });

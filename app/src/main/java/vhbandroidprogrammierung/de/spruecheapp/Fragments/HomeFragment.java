@@ -21,6 +21,7 @@ import vhbandroidprogrammierung.de.spruecheapp.R;
 
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = "HomeFragment";
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 2;
@@ -67,7 +68,6 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
-
     }
 
     class MyAdapter extends FragmentPagerAdapter {

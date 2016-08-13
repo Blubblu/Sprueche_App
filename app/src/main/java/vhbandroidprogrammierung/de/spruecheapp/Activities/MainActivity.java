@@ -79,7 +79,13 @@ public class MainActivity extends AppCompatActivity
                 authorList.get(1), categoryList.get(3), true, false));
         sayingList.add(new Saying("Es gibt immer absolut immer einen Grund dankbar zu sein - finde ihn!", authorList.get(2), categoryList.get(2), false, false));
         sayingList.add(new Saying("Nur wer sich selbst liebt kann auch andere lieben.", authorList.get(2), categoryList.get(1), false, false));
+
+
         sayingList.add(new Saying("Testspruch für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));
+        sayingList.add(new Saying("Testspruch 2 für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));
+        sayingList.add(new Saying("Testspruch 3 für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));
+        sayingList.add(new Saying("Testspruch 4 für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));
+        sayingList.add(new Saying("Testspruch 5 für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));
     }
 
 

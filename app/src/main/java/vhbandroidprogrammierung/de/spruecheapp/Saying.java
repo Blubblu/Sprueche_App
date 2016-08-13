@@ -11,6 +11,8 @@ public class Saying implements ListItemSaying {
     private boolean isFavorite, isUserSaying;
     private SayingAuthor sayingAuthor;
     private SayingCategory sayingCategory;
+    private int listPositionBeforeGettingRemoved;
+
 
     public Saying() {
         // empty
@@ -26,6 +28,14 @@ public class Saying implements ListItemSaying {
         this.sayingCategory = category;
         this.isFavorite = isFavorite;
         this.isUserSaying = isUserSaying;
+    }
+
+    public int getListPositionBeforeGettingRemoved() {
+        return listPositionBeforeGettingRemoved;
+    }
+
+    public void setListPositionBeforeGettingRemoved(int listPositionBeforeGettingRemoved) {
+        this.listPositionBeforeGettingRemoved = listPositionBeforeGettingRemoved;
     }
 
     public SayingAuthor getSayingAuthor() {

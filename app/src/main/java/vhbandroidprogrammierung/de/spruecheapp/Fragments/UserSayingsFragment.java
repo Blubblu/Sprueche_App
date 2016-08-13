@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +24,7 @@ import android.widget.Spinner;
 import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
@@ -35,16 +38,24 @@ import vhbandroidprogrammierung.de.spruecheapp.SayingCategory;
 
 public class UserSayingsFragment extends Fragment implements View.OnClickListener {
 
+    public static final int SNACKBAR_DURATION = 5000;
     private static final String USER_SAYING_CATEGORY = "Ich";
     private static final String TAG = "UserSayingsFragment";
     private FloatingActionButton fab;
     private RecyclerView recyclerView;
     private ArrayList<Saying> userSayingArrayList;
+    private ArrayList<Saying> tmpDeletedSayings;
     private RecyclerAdapter recyclerAdapter;
     private View view;
     private Context context;
     private List<String> categoryList;
     private MainActivity activity;
+    private CoordinatorLayout coordinatorLayout;
+    private int elementsDeleted;
+    private Snackbar deleteSnackbar;
+    private long snackBarStartTime;
+    private Calendar calendar;
+
 
     @Nullable
     @Override
@@ -53,7 +64,11 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         view = inflater.inflate(R.layout.fragment_user_sayings, null);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.own_sayings);
         this.context = getContext();
-        this.activity  =(MainActivity) getActivity();
+        this.activity = (MainActivity) getActivity();
+
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.cl_user_sayings);
+
+        tmpDeletedSayings = new ArrayList<Saying>();
 
         initFab();
         initRecyclerView();
@@ -88,7 +103,7 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
                     public void run() {
                         fab.show();
                     }
-                }, Config.fabAnimationTimeMS);
+                }, Config.FAB_ANIMATION_TIME);
                 return true;
             }
         });
@@ -115,9 +130,9 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
 
     private void fillSayingArray() {
 
-       userSayingArrayList.clear();
-        for(Saying saying : activity.getSayingList()) {
-            if(saying.getSayingAuthor().getAuthorName().equals(USER_SAYING_CATEGORY)) {
+        userSayingArrayList.clear();
+        for (Saying saying : activity.getSayingList()) {
+            if (saying.getSayingAuthor().getAuthorName().equals(USER_SAYING_CATEGORY)) {
                 userSayingArrayList.add(saying);
             }
         }
@@ -163,19 +178,97 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
     /**
      * Nachdem User einen Spruch weggewischt hat, muss er aus der Liste gelöscht werden
      * Den gelöschten Spruch in der Hauptliste der MainActivity suchen, dort löschen und hier aktualisieren
+     * <p/>
+     * Wenn ein Element gelöscht wird, erscheint die Snackbar, die die Rückgängig-Aktion anbietet. Diese Snackbar wird für 5 Sekunden gezeigt.
+     * Wenn während dieser 5 Sekunden noch ein Element gelöscht wird, wird die Snackbar erneuert und ihr Text ändert sich (+1).
+     * So einen Anzeigezeitraum nennen wir "Snackbar-Periode"
+     * <p/>
+     * Gelöschte Elemente werden einem temporärem Array hinzugefügt.
+     * Wenn gerade keine Snackbar-Periode ist, wird dieses Array gellert (um die Elemente der vorherigen Periode zu beseitigen)
+     * Die Variable elementsDeleted zählt mit, wie viele Elemente gerade in dieser Periode sind.
+     * <p/>
+     * Über die Calendar Objekte und deren Zeit in Millisekunden wird überprüft, ob gerade eine Periode ist.
+     *
      * @param position
      */
     private void deleteUserSaying(int position) {
+
+        // Vorbereitung zur Überprüfung einer Snackbar-Periode
+        calendar = Calendar.getInstance();
+        long currentSystemTime = calendar.getTimeInMillis();
+
+        // Wenn gerade keine Periode ist, das tmp Array leeren und den Counter zurücksetzen
+        if ((currentSystemTime - snackBarStartTime) >= 5000) {
+            tmpDeletedSayings.clear();
+            elementsDeleted = 0;
+        }
+
+        // Zu löschendes Element
         Saying deletedSaying = userSayingArrayList.get(position);
 
-        for(int i = 0; i < activity.getSayingList().size(); i++) {
-            if(activity.getSayingList().get(i) == deletedSaying) {
+       /* // In dem zu löschenden Element die ehemalige Position in der Liste speichern
+        deletedSaying.setListPositionBeforeGettingRemoved(position);*/
+
+        /*
+         Alle Sprüche nach dem gelöschten durchsuchen und daraus entfernen.
+         Vorher noch in dem tmp Array speichern und die Counter erhöhen
+         Snackbar zeigen
+          */
+        for (int i = 0; i < activity.getSayingList().size(); i++) {
+            if (activity.getSayingList().get(i) == deletedSaying) {
+                tmpDeletedSayings.add(deletedSaying);
+                elementsDeleted++;
                 activity.getSayingList().remove(i);
+                showDeleteSnackbar();
             }
         }
 
+        // Liste aktualisieren
+        updateSayingList();
+    }
+
+    private void updateSayingList() {
         fillSayingArray();
         recyclerAdapter.notifyDataSetChanged();
+    }
+
+    /*
+    elementsDeleted gibt an, wie viele Elemente in der aktuellen Snackbar-Periode sind. Dementsprechend den Text anpassen.
+     */
+    private void showDeleteSnackbar() {
+
+        String snackbarText = "";
+
+        if (elementsDeleted == 1) {
+            snackbarText = "1 Spruch gelöscht";
+        } else if (elementsDeleted > 1) {
+            snackbarText = elementsDeleted + " Sprüche gelöscht";
+        }
+
+        deleteSnackbar = Snackbar
+                .make(coordinatorLayout, snackbarText, 5000).setAction("Rückgängig", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        undoRemoveSayings();
+                    }
+                });
+        deleteSnackbar.show();
+
+        // Die Snackbar-Startzeit aktualisieren
+        calendar = Calendar.getInstance();
+        snackBarStartTime = calendar.getTimeInMillis();
+    }
+
+    private void undoRemoveSayings() {
+
+        // for (int i = tmpDeletedSayings.size() - 1; i >= 0; i--) {
+        for (int i = 0; i < tmpDeletedSayings.size(); i++) {
+
+            // activity.getSayingList().add(tmpDeletedSayings.get(i).getListPositionBeforeGettingRemoved(), tmpDeletedSayings.get(i));
+            activity.getSayingList().add(tmpDeletedSayings.get(i));
+        }
+
+        updateSayingList();
     }
 
     public void createUserSayingDialog() {
@@ -194,7 +287,6 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-
 
 
                 String saying = sayingName.getEditText().getText().toString();
@@ -226,8 +318,7 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
                             " Category: " + newSaying.getSayingCategory().getCategoryName() +
                             " Author: " + newSaying.getSayingAuthor().getAuthorName());
                     activity.getSayingList().add(newSaying);
-                    fillSayingArray();
-                    recyclerAdapter.notifyDataSetChanged();
+                    updateSayingList();
                 }
             }
 
