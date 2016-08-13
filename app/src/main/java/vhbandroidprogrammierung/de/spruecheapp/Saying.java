@@ -16,6 +16,10 @@ public class Saying implements ListItemSaying {
         // empty
     }
 
+    public Saying(String saying) {
+        this.saying = saying;
+    }
+
     public Saying(String saying, SayingAuthor author, SayingCategory category, boolean isFavorite, boolean isUserSaying) {
         this.saying = saying;
         this.sayingAuthor = author;
