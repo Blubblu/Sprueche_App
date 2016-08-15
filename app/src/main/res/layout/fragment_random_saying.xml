@@ -2,11 +2,11 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_random_saying"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_grey"
     android:fitsSystemWindows="true"
-
     tools:context=".Activities.MainActivity">
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -42,12 +42,12 @@
                 <TableRow android:gravity="center_vertical">
 
                     <TextView
-                        android:layout_weight="4"
                         android:id="@+id/tv_author_random"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_saying_random"
                         android:layout_marginLeft="10dp"
+                        android:layout_weight="4"
                         android:singleLine="true"
                         android:text="unbekannt"
                         android:textSize="@dimen/random_saying_author_text_size"
@@ -113,6 +113,5 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_reload_white_48dp"
         app:layout_anchor="@id/ll_bottom_items"
-        app:layout_anchorGravity="center_horizontal"
-       />
+        app:layout_anchorGravity="center_horizontal" />
 </android.support.design.widget.CoordinatorLayout>

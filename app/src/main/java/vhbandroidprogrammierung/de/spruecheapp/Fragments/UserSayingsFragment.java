@@ -198,10 +198,18 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         long currentSystemTime = calendar.getTimeInMillis();
 
         // Wenn gerade keine Periode ist, das tmp Array leeren und den Counter zurücksetzen
-        if ((currentSystemTime - snackBarStartTime) >= 5000) {
+        long timeDiff = currentSystemTime - snackBarStartTime;
+        if (snackBarStartTime != 0 && timeDiff >= 5000) {
+            Log.i(TAG, "deleteUserSaying: snackbar period exceeded: " + timeDiff);
+
             tmpDeletedSayings.clear();
             elementsDeleted = 0;
-        }
+        } /*else {
+            Log.i(TAG, "deleteUserSaying: elements ind tmpDeletedSayings");
+            for(Saying s : tmpDeletedSayings) {
+                Log.i(TAG, "deleteUserSaying: " + s.getSaying());
+            }
+        }*/
 
         // Zu löschendes Element
         Saying deletedSaying = userSayingArrayList.get(position);
@@ -268,6 +276,8 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
             activity.getSayingList().add(tmpDeletedSayings.get(i));
         }
 
+        // tmp Liste leeren, wenn die Elemente wieder in die Hauptliste gefügt wurden und diese aktualisieren
+        tmpDeletedSayings.clear();
         updateSayingList();
     }
 

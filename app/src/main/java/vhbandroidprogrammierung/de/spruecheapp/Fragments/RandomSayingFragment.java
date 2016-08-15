@@ -1,14 +1,21 @@
 package vhbandroidprogrammierung.de.spruecheapp.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +27,7 @@ import android.widget.TextView;
 import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
 import vhbandroidprogrammierung.de.spruecheapp.Saying;
+import vhbandroidprogrammierung.de.spruecheapp.ShakeDetector;
 
 
 public class RandomSayingFragment extends Fragment implements View.OnClickListener {
@@ -31,6 +39,14 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
     private ImageView iv_fav, iv_share;
     private TextView tv_saying;
     private boolean isFragmentVisible;
+    private boolean didUserSeeShakeHint;
+    private AlertDialog alertDialog;
+    private SharedPreferences sharedPreferences;
+
+    //Sensor Shake Erkennung
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private ShakeDetector shakeDetector;
 
     @Nullable
     @Override
@@ -42,15 +58,75 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
         currentSaying = new Saying();
         currentSaying.setFavorite(false);
 
+        initSharedPreferences();
         initUI();
+        initShakeDetector();
 
         return view;
+    }
+
+
+    private void initSharedPreferences() {
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        // Wenn der user den hint-dialog per Schütteln geschlossen hat, wird der geladene Wert true sein und der dialog wird nie mehr angezeigt.
+        didUserSeeShakeHint = sharedPreferences.getBoolean("pref_shake_hint", false);
+        Log.i(TAG, "initSharedPreferences: " + didUserSeeShakeHint + " loaded from prefs");
+    }
+
+    private void saveSharedPrefs() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("pref_shake_hint", didUserSeeShakeHint);
+        editor.commit();
+        Log.i(TAG, "saveSharedPrefs: " + didUserSeeShakeHint + " saved to prefs");
+    }
+
+    private void initShakeDetector() {
+
+        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        shakeDetector = new ShakeDetector();
+        shakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+            @Override
+            public void onShake() {
+
+                if (isFragmentVisible) {
+
+                    // 500 ms vibrieren
+                    Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(500);
+
+                    /*
+                    Wenn der User-Hint-Dialog sichtbar ist, kann man ihn über das Schütteln schließen
+                     */
+                    if (alertDialog != null && !didUserSeeShakeHint) {
+                        alertDialog.dismiss();
+                        didUserSeeShakeHint = true;
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * Weist den User darauf hin, wie man einen neuen zufälligen Spruch laden kann
+     */
+    private void showHintDialog() {
+        AlertDialog.Builder shakeHintDialog = new AlertDialog.Builder(getContext());
+        shakeHintDialog.setTitle("Neuen zufälligen Spruch laden");
+        shakeHintDialog.setMessage("Lade einen neuen Spruch entweder über diesen Button, oder indem du das Gerät schüttelst. Teste das Schütteln um den Dialog zu schließen").setCancelable(true);
+        alertDialog = shakeHintDialog.create();
+        alertDialog.show();
     }
 
 
     /**
      * Setzt einen boolean wenn das Fragment sichtbar oder unsichtbar wird.
      * FAB wird versteckt wenn das Fragment unsichtbar wird
+     *
      * @param isVisibleToUser
      */
     @Override
@@ -59,12 +135,12 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
         isFragmentVisible = isVisibleToUser;
 
         if (isFragmentVisible) {
-            if(fab!= null) {
+            if (fab != null) {
                 animateFab();
             }
             Log.d(TAG, "this fragment is now visible");
         } else {
-            if(fab != null) {
+            if (fab != null) {
                 fab.hide();
             }
             Log.d(TAG, "this fragment is now invisible");
@@ -93,8 +169,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
                 return true;
             }
         });
-
-}
+    }
 
     private void initUI() {
 
@@ -148,12 +223,32 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
 
             case R.id.fab_random_sayings:
                 //TODO Neuen Random Spruch laden
+
+                if (!didUserSeeShakeHint) {
+                    showHintDialog();
+                }
                 break;
 
             default:
                 break;
-
         }
-
     }
+
+    @Override
+    public void onResume() {
+        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        Log.i(TAG, "onResume: sensorManager registered");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        sensorManager.unregisterListener(shakeDetector);
+        Log.i(TAG, "onPause: sensorManager unregistered");
+
+        saveSharedPrefs();
+        super.onPause();
+    }
+
+
 }
