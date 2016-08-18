@@ -30,7 +30,7 @@
                 android:layout_marginBottom="15dp"
                 android:gravity="center"
                 android:singleLine="false"
-                android:text="Tu was du willst, und steh dazu; denn dein Leben lebst nur du!"
+                android:text=""
                 android:textSize="@dimen/random_saying_text_size" />
 
             <TableLayout
@@ -48,8 +48,8 @@
                         android:layout_below="@id/tv_saying_random"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="4"
-                        android:singleLine="true"
-                        android:text="unbekannt"
+                        android:singleLine="false"
+                        android:text=""
                         android:textSize="@dimen/random_saying_author_text_size"
                         android:textStyle="italic" />
 
@@ -66,8 +66,8 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
-                        android:singleLine="true"
-                        android:text="Lebenssprüche"
+                        android:singleLine="false"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/random_saying_cat_text_size" />
                 </TableRow>

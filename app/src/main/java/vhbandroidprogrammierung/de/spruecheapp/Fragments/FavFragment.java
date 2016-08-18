@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreator;
+import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreatorCustom;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
 import vhbandroidprogrammierung.de.spruecheapp.Saying;
 import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
@@ -45,9 +45,9 @@ public class FavFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_fav_sayings);
         favSayingArrayList = new ArrayList<>();
 
-        buildDemoSayings();
+        RecyclerViewCreatorCustom recyclerViewCreatorCustom = new RecyclerViewCreatorCustom();
 
-        recyclerAdapter = RecyclerViewCreator.buildRecyclerViewWithAdapter(recyclerView, favSayingArrayList, context);
+        recyclerAdapter = recyclerViewCreatorCustom.buildRecyclerViewWithAdapter(recyclerView, favSayingArrayList, context);
         recyclerView.setAdapter(recyclerAdapter);
     }
 

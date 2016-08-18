@@ -24,6 +24,9 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Random;
+
+import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
 import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
 import vhbandroidprogrammierung.de.spruecheapp.Saying;
@@ -37,11 +40,13 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
     private FloatingActionButton fab;
     private Saying currentSaying;
     private ImageView iv_fav, iv_share;
-    private TextView tv_saying;
+    private TextView tv_saying, tv_author, tv_category;
     private boolean isFragmentVisible;
     private boolean didUserSeeShakeHint;
     private AlertDialog alertDialog;
     private SharedPreferences sharedPreferences;
+    private MainActivity activity;
+    private Saying randomSaying;
 
     //Sensor Shake Erkennung
     private SensorManager sensorManager;
@@ -53,6 +58,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         this.view = inflater.inflate(R.layout.fragment_random_saying, null);
+        this.activity = (MainActivity) getActivity();
 
         // Nur zu Testzwecken, um das Setzen den Fav-Booleans zu testen.
         currentSaying = new Saying();
@@ -61,8 +67,31 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
         initSharedPreferences();
         initUI();
         initShakeDetector();
+        loadRandomSaying();
 
         return view;
+    }
+
+    private void loadRandomSaying() {
+
+        // Zufälliges Element aus der Hauptliste der Main Activity holen
+        Random rand = new Random();
+
+        try {
+            randomSaying = activity
+                    .getSayingList()
+                    .get(rand.nextInt(activity.getSayingList().size()) + 1);
+        } catch (Exception e) {
+            Log.e(TAG, "initRandomSaying: Error at loading a random saying");
+        }
+
+        if (randomSaying != null) {
+            tv_saying.setText(randomSaying.getSaying());
+            tv_author.setText(randomSaying.getSayingAuthor().getAuthorName());
+            tv_category.setText(randomSaying.getSayingCategory().getCategoryName());
+        } else {
+            Log.e(TAG, "loadRandomSaying: randomSaying was null");
+        }
     }
 
 
@@ -98,6 +127,8 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
                     // 500 ms vibrieren
                     Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(500);
+
+                    loadRandomSaying();
 
                     /*
                     Wenn der User-Hint-Dialog sichtbar ist, kann man ihn über das Schütteln schließen
@@ -180,6 +211,9 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
         tv_saying = (TextView) view.findViewById(R.id.tv_saying_random);
         tv_saying.setTypeface(Typeface.createFromAsset(getContext().getAssets(), getContext().getString(R.string.font_path)));
 
+        tv_author = (TextView) view.findViewById(R.id.tv_author_random);
+        tv_category = (TextView) view.findViewById(R.id.tv_category_random);
+
         this.iv_fav = (ImageView) view.findViewById(R.id.iv_favorite);
         this.iv_share = (ImageView) view.findViewById(R.id.iv_share);
         this.fab = (FloatingActionButton) view.findViewById(R.id.fab_random_sayings);
@@ -222,11 +256,13 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
                 break;
 
             case R.id.fab_random_sayings:
-                //TODO Neuen Random Spruch laden
 
                 if (!didUserSeeShakeHint) {
                     showHintDialog();
                 }
+
+                loadRandomSaying();
+
                 break;
 
             default:
@@ -249,6 +285,4 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
         saveSharedPrefs();
         super.onPause();
     }
-
-
 }

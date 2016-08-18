@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +39,8 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
         iv_favorite = (ImageView) this.view.findViewById(R.id.iv_star);
         iv_user_saying = (ImageView) this.view.findViewById(R.id.iv_user_saying);
 
-        iv_favorite.setOnClickListener(this);;
+        iv_favorite.setOnClickListener(this);
+        ;
     }
 
     /**
@@ -48,10 +50,17 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
      */
     public void bindType(ListItemSaying item) {
 
-        String saying = ((Saying) item).getSaying();
-        String author = ((Saying) item).getSayingAuthor().getAuthorName();
-        String category = ((Saying) item).getSayingCategory().getCategoryName();
+        String saying = "";
+        String author = "";
+        String category = "";
 
+        try {
+            saying = ((Saying) item).getSaying();
+            author = ((Saying) item).getSayingAuthor().getAuthorName();
+            category = ((Saying) item).getSayingCategory().getCategoryName();
+        } catch (Exception e) {
+            Log.e(TAG, "bindType: Error loading Data");
+        }
         boolean isFavorite = ((Saying) item).isFavorite();
         boolean isUserSaying = ((Saying) item).isUserSaying();
 

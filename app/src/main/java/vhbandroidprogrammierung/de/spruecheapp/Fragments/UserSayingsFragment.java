@@ -30,7 +30,7 @@ import java.util.List;
 import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
 import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreator;
+import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreatorCustom;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
 import vhbandroidprogrammierung.de.spruecheapp.Saying;
 import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
@@ -123,8 +123,9 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         userSayingArrayList = new ArrayList<>();
 
         fillSayingArray();
+        RecyclerViewCreatorCustom recyclerViewCreatorCustom = new RecyclerViewCreatorCustom();
 
-        recyclerAdapter = RecyclerViewCreator.buildRecyclerViewWithAdapter(recyclerView, userSayingArrayList, context);
+        recyclerAdapter = recyclerViewCreatorCustom.buildRecyclerViewWithAdapter(recyclerView, userSayingArrayList, context);
         recyclerView.setAdapter(recyclerAdapter);
     }
 

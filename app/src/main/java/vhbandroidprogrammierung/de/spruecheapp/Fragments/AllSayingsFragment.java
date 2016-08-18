@@ -13,31 +13,32 @@ import android.view.ViewGroup;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
 import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreator;
+import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreatorCustom;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
 import vhbandroidprogrammierung.de.spruecheapp.Saying;
-import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
-import vhbandroidprogrammierung.de.spruecheapp.SayingCategory;
 
 
 public class AllSayingsFragment extends Fragment {
 
     private static final String TAG = "AllSayingsFragment";
     private RecyclerView recyclerView;
-    private ArrayList<Saying> sayingArrayList;
+    private List<Saying> sayingArrayList;
     private RecyclerAdapter recyclerAdapter;
     private Context context;
     private View view;
     private MaterialRefreshLayout materialRefreshLayout;
+    private MainActivity activity;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_all_sayings, null);
+        this.activity = (MainActivity) getActivity();
         context = getContext();
 
         initRecyclerView();
@@ -90,17 +91,18 @@ public class AllSayingsFragment extends Fragment {
 
     private void initRecyclerView() {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_all_sayings);
-        sayingArrayList = new ArrayList<>();
+        //sayingArrayList = new ArrayList<>();
+        sayingArrayList = activity.getSayingList();
+        RecyclerViewCreatorCustom recyclerViewCreatorCustom = new RecyclerViewCreatorCustom();
 
-        buildDemoSayings();
 
-        recyclerAdapter = RecyclerViewCreator.buildRecyclerViewWithAdapter(recyclerView, sayingArrayList, context);
+        recyclerAdapter = recyclerViewCreatorCustom.buildRecyclerViewWithAdapter(recyclerView, sayingArrayList, context);
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-    // TODO Nur für Demo-Zwecke, bis wir die echten Sprüche einlesen können
+   /* // TODO Nur für Demo-Zwecke, bis wir die echten Sprüche einlesen können
     private void buildDemoSayings() {
         sayingArrayList.add(new Saying("Glaube an Wunder, Liebe und Glück! Schau nach vorn und nicht zurück!\n" +
                 "Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", new SayingAuthor("unbekannt"), new SayingCategory("Lebenssprüche"), true, false));
-    }
+    }*/
 }
