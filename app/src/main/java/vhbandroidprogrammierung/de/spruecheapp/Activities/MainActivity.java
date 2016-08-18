@@ -2,9 +2,9 @@ package vhbandroidprogrammierung.de.spruecheapp.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -133,19 +133,21 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         drawerLayout.closeDrawers();
 
-        // Alle außer home auf den backStack legen um durch die Zurück-Taste auf der Hauptseite zu landen
+        Fragment fragment = null;
+        String title = getString(R.string.app_name);
+
         switch (item.getItemId()) {
             case R.id.nav_home:
-                FragmentTransaction homeFragmentTransaction = fragmentManager.beginTransaction();
-                homeFragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
+                fragment = new HomeFragment();
+                title = getResources().getString(R.string.sayings);
                 break;
             case R.id.nav_fav_sayings:
-                FragmentTransaction favFragmentTransaction = fragmentManager.beginTransaction().addToBackStack("fragback");
-                favFragmentTransaction.replace(R.id.containerView, new FavFragment()).commit();
+                fragment = new FavFragment();
+                title = getResources().getString(R.string.fav_sayings);
                 break;
             case R.id.nav_user_sayings:
-                FragmentTransaction userFragmentTransaction = fragmentManager.beginTransaction().addToBackStack("fragback");
-                userFragmentTransaction.replace(R.id.containerView, new UserSayingsFragment()).commit();
+                fragment = new UserSayingsFragment();
+                title = getResources().getString(R.string.user_sayings);
                 break;
             case R.id.nav_settings:
                 toaster("Settings", true);
@@ -156,8 +158,15 @@ public class MainActivity extends AppCompatActivity
             default:
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.containerView, fragment);
+            fragmentTransaction.commit();
+
+            getSupportActionBar().setTitle(title);
+        }
+
         return true;
     }
 
@@ -184,36 +193,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-    /**
-     * GETTERS & SETTERS
-     *
-     * @return
-     */
-
-    public List<Saying> getSayingList() {
-        return sayingList;
-    }
-
-    public void setSayingList(List<Saying> sayingList) {
-        this.sayingList = sayingList;
-    }
-
-    public List<SayingCategory> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<SayingCategory> categoryList) {
-        this.categoryList = categoryList;
-    }
-
-    public List<SayingAuthor> getAuthorList() {
-        return authorList;
-    }
-
-    public void setAuthorList(List<SayingAuthor> authorList) {
-        this.authorList = authorList;
-    }
 
     protected void loadTextFile() {
         try {
@@ -261,6 +240,7 @@ public class MainActivity extends AppCompatActivity
      * Die eingelesenen Zeilen eines Spruchs für unsere Datenhaltung bearbeiten
      * Unnötige Zeilen entfernen
      * Autor & Kategorie in Objekte verwandeln
+     *
      * @param tmpSaying
      */
     private void processTmpSaying(List<String> tmpSaying) {
@@ -378,7 +358,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         // leere oder zu lange Sprüche nicht speichern
-        if (sayingText.length() > 0  && sayingText.length() < 130) {
+        if (sayingText.length() > 0 && sayingText.length() < 130) {
             newSaying.setSaying(sayingText);
             sayingList.add(newSaying);
         }
@@ -419,6 +399,37 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return resultIndex;
+    }
+
+
+    /**
+     * GETTERS & SETTERS
+     *
+     * @return
+     */
+
+    public List<Saying> getSayingList() {
+        return sayingList;
+    }
+
+    public void setSayingList(List<Saying> sayingList) {
+        this.sayingList = sayingList;
+    }
+
+    public List<SayingCategory> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<SayingCategory> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public List<SayingAuthor> getAuthorList() {
+        return authorList;
+    }
+
+    public void setAuthorList(List<SayingAuthor> authorList) {
+        this.authorList = authorList;
     }
 }
 

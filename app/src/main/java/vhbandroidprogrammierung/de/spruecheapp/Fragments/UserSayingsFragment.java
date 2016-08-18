@@ -67,7 +67,6 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         this.activity = (MainActivity) getActivity();
 
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.cl_user_sayings);
-
         tmpDeletedSayings = new ArrayList<Saying>();
 
         initFab();
@@ -75,7 +74,6 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         initSwipeableRecyclerViewTouchListener(recyclerView);
 
         return view;
-
     }
 
     private void initFab() {

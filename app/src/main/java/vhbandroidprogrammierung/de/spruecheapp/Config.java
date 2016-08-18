@@ -10,6 +10,7 @@ public class Config {
     public static final String CATEGORY_REPLACE_STRING = "Primärthema: ";
     public static final String AUHTOR_REPLACE_STRING = "Autor/Quelle: ";
 
+
     public static final int NOTIFICATION_ID = 123;
     public static final int UPDATE_SAYINGS_AFTER_DAYS = 7;
     public static final int FAB_ANIMATION_TIME = 350;
