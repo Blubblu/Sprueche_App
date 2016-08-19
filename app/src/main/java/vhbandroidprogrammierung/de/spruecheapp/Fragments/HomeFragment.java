@@ -142,4 +142,14 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    public void notifyNestedFragmentsOfDataChange() {
+        if(allSayingsFragment != null) {
+            allSayingsFragment.dataHasBeenChanged();
+        }
+
+        if(randomSayingFragment != null ) {
+            randomSayingFragment.dataHasBeenChanged();
+        }
+    }
+
 }

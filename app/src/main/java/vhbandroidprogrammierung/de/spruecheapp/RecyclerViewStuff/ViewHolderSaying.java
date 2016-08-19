@@ -13,6 +13,10 @@ import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
 import vhbandroidprogrammierung.de.spruecheapp.R;
 import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
 
+/**
+ * Für jedes Element in den Listen wird ein ViewHolder Objekt erstellt, dass die jeweilige CardView
+ * samt ihren Texten und Icons darstellt.
+ */
 public class ViewHolderSaying extends ViewHolder implements View.OnClickListener {
 
     private static final String TAG = "ViewHolderReminder";

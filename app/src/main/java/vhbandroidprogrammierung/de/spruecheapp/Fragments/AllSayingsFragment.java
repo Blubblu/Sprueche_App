@@ -18,12 +18,14 @@ import java.util.List;
 import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
 import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerViewCreatorCustom;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
+import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerViewCreatorCustom;
 import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
 
-
-public class AllSayingsFragment extends Fragment {
+/**
+ * Fragment für die Liste ALLER Sprüche
+ */
+public class AllSayingsFragment extends Fragment  {
 
     private static final String TAG = "AllSayingsFragment";
     private RecyclerView recyclerView;
@@ -98,5 +100,9 @@ public class AllSayingsFragment extends Fragment {
         RecyclerViewCreatorCustom recyclerViewCreatorCustom = new RecyclerViewCreatorCustom();
         recyclerAdapter = recyclerViewCreatorCustom.buildRecyclerViewWithAdapter(recyclerView, sayingArrayList, context);
         recyclerView.setAdapter(recyclerAdapter);
+    }
+
+    public void dataHasBeenChanged() {
+        Log.i(TAG, "dataHasBeenChanged: ");
     }
 }

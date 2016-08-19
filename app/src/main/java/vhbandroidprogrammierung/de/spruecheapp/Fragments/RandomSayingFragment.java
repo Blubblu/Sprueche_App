@@ -33,7 +33,11 @@ import vhbandroidprogrammierung.de.spruecheapp.R;
 import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
 import vhbandroidprogrammierung.de.spruecheapp.ShakeDetector;
 
-
+/**
+ * Ist die Startseite der App und zeigt einen zufälligen Spruch
+ * Einen neuen Spruch kann man entweder durch den FloatingActionButton (fab) oder durch Schütteln
+ * des Smartphones (Shake) anzeigen lassen.
+ */
 public class RandomSayingFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "RandomSayingFragment";
@@ -315,5 +319,9 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
         if (f < 0.5 && fab.getVisibility() != View.VISIBLE) {
             animateFab();
         }
+    }
+
+    public void dataHasBeenChanged() {
+        Log.i(TAG, "dataHasBeenChanged: ");
     }
 }

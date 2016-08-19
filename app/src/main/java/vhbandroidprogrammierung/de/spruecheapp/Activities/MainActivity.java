@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
     private List<Saying> sayingList;
     private List<SayingCategory> categoryList;
     private List<SayingAuthor> authorList;
-
+    private HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         initFragment();
         initToolbar();
         initDrawer();
+
     }
 
 
@@ -89,9 +90,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initFragment() {
+        homeFragment = new HomeFragment();
+
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
+        fragmentTransaction.replace(R.id.containerView,homeFragment).commit();
     }
 
     private void initToolbar() {
@@ -183,6 +186,12 @@ public class MainActivity extends AppCompatActivity
         boolean newFavState = !sayingList.get(pos).isFavorite();
 
         sayingList.get(pos).setFavorite(newFavState);
+
+        if(homeFragment != null) {
+            homeFragment.notifyNestedFragmentsOfDataChange();
+        }
+
+
         Log.i(TAG, "favStarHasBeenClicked: Fav has been clicked, is now: " + sayingList.get(pos).isFavorite() + "\n" + sayingList.get(pos).getSaying());
 
         if(newFavState) {
