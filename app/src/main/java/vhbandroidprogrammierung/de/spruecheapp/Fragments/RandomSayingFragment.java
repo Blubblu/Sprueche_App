@@ -16,18 +16,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.Random;
 
 import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
-import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
 import vhbandroidprogrammierung.de.spruecheapp.Saying;
 import vhbandroidprogrammierung.de.spruecheapp.ShakeDetector;
@@ -47,6 +48,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
     private SharedPreferences sharedPreferences;
     private MainActivity activity;
     private Saying randomSaying;
+    private TableLayout bottomLayout;
 
     //Sensor Shake Erkennung
     private SensorManager sensorManager;
@@ -167,12 +169,12 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
 
         if (isFragmentVisible) {
             if (fab != null) {
-                animateFab();
+                //  animateFab();
             }
             Log.d(TAG, "this fragment is now visible");
         } else {
             if (fab != null) {
-                fab.hide();
+                //   fab.hide();
             }
             Log.d(TAG, "this fragment is now invisible");
         }
@@ -183,6 +185,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
      */
     private void animateFab() {
 
+        Log.i(TAG, "animateFab: ");
         fab.setVisibility(View.INVISIBLE);
         fab.setScaleX(0.0F);
         fab.setScaleY(0.0F);
@@ -196,7 +199,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
                     public void run() {
                         fab.show();
                     }
-                }, Config.FAB_ANIMATION_TIME);
+                }, 0);
                 return true;
             }
         });
@@ -214,6 +217,7 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
         tv_author = (TextView) view.findViewById(R.id.tv_author_random);
         tv_category = (TextView) view.findViewById(R.id.tv_category_random);
 
+        this.bottomLayout = (TableLayout) view.findViewById(R.id.ll_bottom_items);
         this.iv_fav = (ImageView) view.findViewById(R.id.iv_favorite);
         this.iv_share = (ImageView) view.findViewById(R.id.iv_share);
         this.fab = (FloatingActionButton) view.findViewById(R.id.fab_random_sayings);
@@ -284,5 +288,32 @@ public class RandomSayingFragment extends Fragment implements View.OnClickListen
 
         saveSharedPrefs();
         super.onPause();
+    }
+
+    public void changeBottomBarVisibility(float f) {
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
+
+        int navigationBarHeight = 0;
+        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+
+        // Log.i(TAG, "changeBottomBarVisibility: Display height: " + height + "\n BottomBar Height: " + bottomLayout.getHeight() + " " + navigationBarHeight);
+        Log.i(TAG, "changeBottomBarVisibility: " + f);
+
+        bottomLayout.setY(1150 + 3 * f * 100);
+
+        if (f > 0.1) {
+            fab.hide();
+        }
+
+        if (f < 0.5 && fab.getVisibility() != View.VISIBLE) {
+            animateFab();
+        }
     }
 }

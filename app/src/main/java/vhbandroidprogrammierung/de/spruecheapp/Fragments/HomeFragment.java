@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
 import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
 
@@ -25,17 +25,43 @@ public class HomeFragment extends Fragment {
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 2;
+    private MainActivity activity;
+
+    private AllSayingsFragment allSayingsFragment;
+    private RandomSayingFragment randomSayingFragment;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.activity = (MainActivity) getActivity();
+
         View view = inflater.inflate(R.layout.fragment_home, null);
+
+        allSayingsFragment = new AllSayingsFragment();
+        randomSayingFragment = new RandomSayingFragment();
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                randomSayingFragment.changeBottomBarVisibility(positionOffset);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         /**
          * Das Runnable ist notwendig. Evtl. Bug in der SupportLibary
@@ -56,6 +82,7 @@ public class HomeFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
             }
 
             @Override
@@ -70,9 +97,9 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+
     class MyAdapter extends FragmentPagerAdapter {
 
-        private static final String TAG = "MyAdapter";
         public String[] tabTitles = getResources().getStringArray(R.array.tab_titles);
 
         public MyAdapter(FragmentManager fm) {
@@ -87,9 +114,9 @@ public class HomeFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new RandomSayingFragment();
+                    return randomSayingFragment;
                 case 1:
-                    return new AllSayingsFragment();
+                    return allSayingsFragment;
             }
             return null;
         }
@@ -106,9 +133,6 @@ public class HomeFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-
-            Log.i(TAG, "getPageTitle: " + tabTitles[0] + " " + tabTitles[1]);
-
 
             if (!Config.showTabText) {
                 return "";

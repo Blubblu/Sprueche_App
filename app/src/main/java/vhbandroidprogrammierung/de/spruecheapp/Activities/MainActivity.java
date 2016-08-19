@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
+
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     private List<Saying> sayingList;
     private List<SayingCategory> categoryList;
     private List<SayingAuthor> authorList;
+
 
 
     @Override
@@ -51,8 +53,8 @@ public class MainActivity extends AppCompatActivity
 
         initLists();
         initFragment();
-        initDrawer();
         initToolbar();
+        initDrawer();
     }
 
 
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
     }
 
     private void initDrawer() {

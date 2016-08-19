@@ -93,16 +93,21 @@ public class AllSayingsFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_all_sayings);
         //sayingArrayList = new ArrayList<>();
         sayingArrayList = activity.getSayingList();
+        Log.i(TAG, "initRecyclerView: " + sayingArrayList.size());
         RecyclerViewCreatorCustom recyclerViewCreatorCustom = new RecyclerViewCreatorCustom();
-
 
         recyclerAdapter = recyclerViewCreatorCustom.buildRecyclerViewWithAdapter(recyclerView, sayingArrayList, context);
         recyclerView.setAdapter(recyclerAdapter);
+
     }
+
+
 
    /* // TODO Nur für Demo-Zwecke, bis wir die echten Sprüche einlesen können
     private void buildDemoSayings() {
         sayingArrayList.add(new Saying("Glaube an Wunder, Liebe und Glück! Schau nach vorn und nicht zurück!\n" +
                 "Tu was du willst, und steh dazu; denn dein Leben lebst nur du!", new SayingAuthor("unbekannt"), new SayingCategory("Lebenssprüche"), true, false));
     }*/
+
+
 }
