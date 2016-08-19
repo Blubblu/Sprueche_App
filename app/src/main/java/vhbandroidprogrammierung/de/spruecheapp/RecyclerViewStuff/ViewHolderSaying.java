@@ -2,8 +2,6 @@ package vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -13,7 +11,7 @@ import android.widget.TextView;
 
 import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.Saying;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
 
 public class ViewHolderSaying extends ViewHolder implements View.OnClickListener {
 
@@ -24,8 +22,11 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
     private Context context;
     private View view;
 
+
+
     public ViewHolderSaying(Context context, View view) {
         super(view);
+
 
         this.view = view;
         this.context = context;
@@ -61,8 +62,9 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
         } catch (Exception e) {
             Log.e(TAG, "bindType: Error loading Data");
         }
+
         boolean isFavorite = ((Saying) item).isFavorite();
-        boolean isUserSaying = ((Saying) item).isUserSaying();
+        boolean  isUserSaying = ((Saying) item).isUserSaying();
 
         favIonColorChange(isFavorite);
         userIconChange(isUserSaying);
@@ -96,11 +98,11 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
             Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_star_outline_grey600_36dp, null);
             iv_favorite.setImageDrawable(drawable);
         } else {
-            Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_star_white_36dp, null);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_star_grey600_36dp, null);
+           /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 int color = ContextCompat.getColor(context, R.color.orange);
                 drawable.setTint(color);
-            }
+            }*/
             iv_favorite.setImageDrawable(drawable);
         }
 
@@ -121,7 +123,7 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
         switch (v.getId()) {
 
             case R.id.iv_star:
-                callHome(apaterPosition, cardView);
+                callHome(apaterPosition, cardView, iv_favorite);
                 break;
 
             default:
@@ -131,11 +133,14 @@ public class ViewHolderSaying extends ViewHolder implements View.OnClickListener
 
     /**
      * Calling MainActivity from onClick
-     *
-     * @param pos
+     *  @param pos
      * @param cv
+     * @param iv_favorite
      */
-    public void callHome(int pos, CardView cv) {
-        ((MainActivity) context).favStarHasBeenClicked(pos, cv);
+    public void callHome(int pos, CardView cv, ImageView iv_favorite) {
+
+        ((MainActivity) context).favStarHasBeenClicked(pos, cv, iv_favorite);
+
+
     }
 }

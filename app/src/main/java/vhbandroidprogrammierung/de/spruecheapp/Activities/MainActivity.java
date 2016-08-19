@@ -12,11 +12,13 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import vhbandroidprogrammierung.de.spruecheapp.Config;
@@ -24,9 +26,9 @@ import vhbandroidprogrammierung.de.spruecheapp.Fragments.FavFragment;
 import vhbandroidprogrammierung.de.spruecheapp.Fragments.HomeFragment;
 import vhbandroidprogrammierung.de.spruecheapp.Fragments.UserSayingsFragment;
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.Saying;
-import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
-import vhbandroidprogrammierung.de.spruecheapp.SayingCategory;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.SayingAuthor;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.SayingCategory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,7 +43,6 @@ public class MainActivity extends AppCompatActivity
     private List<Saying> sayingList;
     private List<SayingCategory> categoryList;
     private List<SayingAuthor> authorList;
-
 
 
     @Override
@@ -67,39 +68,25 @@ public class MainActivity extends AppCompatActivity
         loadTextFile();
 
 
-        /*
-                //TODO: Nur für Testzwecke
-            categoryList.add(new SayingCategory("Lebensweisheiten"));
-            categoryList.add(new SayingCategory("Liebe"));
-            categoryList.add(new SayingCategory("Motivation"));
-            categoryList.add(new SayingCategory("Politik"));
-
-            authorList.add(new SayingAuthor("Ghandi"));
-            authorList.add(new SayingAuthor("Dwight D. Eisenhower"));
-            authorList.add(new SayingAuthor("unbekannt"));
-            authorList.add(new SayingAuthor("Angela Merkel"));
-            authorList.add(new SayingAuthor("Ich"));
-
-            sayingList.add(new Saying("Zuerst ignorieren sie dich, dann lachen sie über dich, dann bekämpfen " +
-                                              "sie dich und dann gewinnst du.", authorList.get(0), categoryList.get(0), false, false));
-            sayingList.add(new Saying("Der Schwache kann nicht verzeihen. Verzeihen ist eine Eigenschaft des Starken.",
-                                      authorList.get(0), categoryList.get(0), false, false));
-            sayingList.add(new Saying("Wir schaffen das", authorList.get(3), categoryList.get(3), true, false));
-            sayingList.add(new Saying("Ich war dagegen aus zwei Gründen. Erstens waren die Japaner bereit sich zu " +
-                                              "ergeben, und es war nicht notwendig, sie mit dieser schrecklichen Sache zu treffen. Und Zweitens, " +
-                                              "ich hasste den Gedanken, dass unser Land das erste sein würde, das solch eine Waffe einsetzt.",
-                                      authorList.get(1), categoryList.get(3), true, false));
-            sayingList.add(new Saying("Es gibt immer absolut immer einen Grund dankbar zu sein - finde ihn!", authorList.get(2), categoryList.get(2), false, false));
-            sayingList.add(new Saying("Nur wer sich selbst liebt kann auch andere lieben.", authorList.get(2), categoryList.get(1), false, false));
-
-
-            sayingList.add(new Saying("Testspruch für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));
-            sayingList.add(new Saying("Testspruch 2 für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));
-            sayingList.add(new Saying("Testspruch 3 für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));
-            sayingList.add(new Saying("Testspruch 4 für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));
-            sayingList.add(new Saying("Testspruch 5 für Eigene Sprüche", authorList.get(4), categoryList.get(1), false, true));*/
     }
 
+
+    public void sortLists(boolean saying, boolean categories, boolean authors) {
+        if (sayingList != null && saying) {
+            Collections.sort(sayingList, Saying.CompareByCategory);
+            Log.i(TAG, "sortLists: sayingList sorted");
+        }
+
+        if (categoryList != null && categories) {
+            Collections.sort(categoryList, SayingCategory.CompareByCategory);
+            Log.i(TAG, "sortLists: categoryList sorted");
+        }
+
+        if (authorList != null && authors) {
+            Collections.sort(authorList, SayingAuthor.CompareByAuthor);
+            Log.i(TAG, "sortLists: categoryList sorted");
+        }
+    }
 
     private void initFragment() {
         fragmentManager = getSupportFragmentManager();
@@ -188,12 +175,21 @@ public class MainActivity extends AppCompatActivity
     /**
      * Wird aufgerufen, wenn der Stern eines RecyclerView Elements in irgend einem Fragment geklickt wurde.
      * TODO: Den "Favorit" Datenbankeintrag für den geklickten Spruch ändern.
-     *
      * @param pos
      * @param cv
      */
-    public void favStarHasBeenClicked(int pos, CardView cv) {
+    public void favStarHasBeenClicked(int pos, CardView cv, ImageView imageView) {
 
+        boolean newFavState = !sayingList.get(pos).isFavorite();
+
+        sayingList.get(pos).setFavorite(newFavState);
+        Log.i(TAG, "favStarHasBeenClicked: Fav has been clicked, is now: " + sayingList.get(pos).isFavorite() + "\n" + sayingList.get(pos).getSaying());
+
+        if(newFavState) {
+            imageView.setBackgroundResource(R.drawable.ic_star_grey600_36dp);
+        } else {
+            imageView.setBackgroundResource(R.drawable.ic_star_outline_grey600_36dp);
+        }
     }
 
 
@@ -302,45 +298,6 @@ public class MainActivity extends AppCompatActivity
         indexLast--;
 
 
-    /*    if (tmpSaying.size() == 2) {
-            tmpSaying.remove(indexLast);
-            newSaying.setSaying(tmpSaying.get(0));
-            sayingList.add(newSaying);
-            Log.i(TAG, "STRINGSTOSAYING: 4");
-            indexLast--;
-        } else if (tmpSaying.size() > 2) {
-
-           *//*
-           Letzte und vorletzte Zeile sind unerwünscht
-            *//*
-            tmpSaying.remove(indexLast);
-            tmpSaying.remove(indexLast - 1);
-            indexLast--;
-            indexLast--;
-
-
-            // Falls noch eine Zeile mit (xy) vorhanden ist
-            if (tmpSaying.get(indexLast).charAt(0) == '(' && tmpSaying.get(indexLast).contains(")")) {
-                tmpSaying.remove(indexLast);
-                indexLast--;
-                Log.i(TAG, "STRINGSTOSAYING: 5");
-            }
-
-            String sayingText = "";
-            for (int i = 0; i < tmpSaying.size() - 1; i++) {
-                sayingText += tmpSaying.get(i) + " ";
-            }
-
-            newSaying.setSaying(sayingText);
-            sayingList.add(newSaying);
-            Log.i(TAG, "STRINGSTOSAYING: 6");
-        } else {
-            Log.i(TAG, "STRINGSTOSAYING: ABORT");
-            return;
-
-            // tmpSaying nicht verarbeiten, da nicht damit umgegangen werden kann
-        }*/
-
         tmpSaying.remove(indexLast);
         indexLast--;
         tmpSaying.remove(indexLast);
@@ -434,6 +391,8 @@ public class MainActivity extends AppCompatActivity
     public void setAuthorList(List<SayingAuthor> authorList) {
         this.authorList = authorList;
     }
+
+
 }
 
 

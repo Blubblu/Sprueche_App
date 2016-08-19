@@ -1,8 +1,8 @@
 package vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff;
 
 
-import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
-import vhbandroidprogrammierung.de.spruecheapp.SayingCategory;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.SayingAuthor;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.SayingCategory;
 
 public interface ListItemSaying {
 
@@ -35,4 +35,5 @@ public interface ListItemSaying {
     void setFavorite(boolean isFavorite);
 
     void setUserSaying(boolean isUserSaying);
+
 }

@@ -1,4 +1,6 @@
-package vhbandroidprogrammierung.de.spruecheapp;
+package vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects;
+
+import java.util.Comparator;
 
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.ListItemSaying;
 
@@ -70,6 +72,7 @@ public class Saying implements ListItemSaying {
         isUserSaying = userSaying;
     }
 
+
     public String getSaying() {
         return saying;
     }
@@ -77,4 +80,45 @@ public class Saying implements ListItemSaying {
     public void setSaying(String saying) {
         this.saying = saying;
     }
+
+
+    public static Comparator<Saying> CompareBySaying = new Comparator<Saying>() {
+
+        public int compare(Saying s1, Saying s2) {
+            String saying1 = s1.getSaying().toUpperCase();
+            String saying2 = s2.getSaying().toUpperCase();
+
+            //Aufsteigend
+            return saying1.compareTo(saying2);
+
+            //Absteigend
+            //return saying1.compareTo(saying2);
+        }};
+
+    public static Comparator<Saying> CompareByCategory = new Comparator<Saying>() {
+
+        public int compare(Saying s1, Saying s2) {
+            String category1 = s1.getSayingCategory().getCategoryName().toUpperCase();
+            String category2 = s2.getSayingCategory().getCategoryName().toUpperCase();
+
+            //Aufsteigend
+            return category1.compareTo(category2);
+
+            //Absteigend
+            //return category1.compareTo(category2);
+        }};
+
+    public static Comparator<Saying> CompareByAuthor = new Comparator<Saying>() {
+
+        public int compare(Saying s1, Saying s2) {
+            String author1 = s1.getSayingAuthor().getAuthorName().toUpperCase();
+            String author2 = s2.getSayingAuthor().getAuthorName().toUpperCase();
+
+            //Aufsteigend
+            return author1.compareTo(author2);
+
+            //Absteigend
+            //return author1.compareTo(author2);
+        }};
+
 }

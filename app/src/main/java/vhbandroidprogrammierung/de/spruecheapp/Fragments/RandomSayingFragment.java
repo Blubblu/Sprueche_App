@@ -30,7 +30,7 @@ import java.util.Random;
 
 import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.Saying;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
 import vhbandroidprogrammierung.de.spruecheapp.ShakeDetector;
 
 

@@ -1,4 +1,4 @@
-package vhbandroidprogrammierung.de.spruecheapp;
+package vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
@@ -6,7 +6,8 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
-import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
+import vhbandroidprogrammierung.de.spruecheapp.R;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
 
 /**
  * Zentrales Code Snippet zum erstllen von RecyclerViews, da wir diesen Part in mehreren Fragmenten brauchen.

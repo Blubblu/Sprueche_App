@@ -849,18 +849,6 @@ Jahr: 1996
 
 
 
-Ich habe manchmal den Eindruck, daß die Schriftsteller meiner Generation
-die Letzten der Mohikaner sind. Nach uns werden die Bücher vielleicht
-nur noch von Computern geschrieben.
-(DER SPIEGEL) (26.6.)
-Norman K. Mailer, 31.1.1923, amerikanischer Schriftsteller,
-Pulitzer-Preis (1969 und 1980).
-Primärthema: Schriftsteller
-Autor/Quelle: Mailer, Norman
-Jahr: 1995
-
-
-
 
 
 Eines Tages wird jeder Mensch auf diesem Planeten im Netz sein und an
@@ -1062,18 +1050,6 @@ Autor/Quelle: Seneca, Lucius, J.
 
 
 
-Die Freude flieht auf allen Wegen; / Der Ärger kommt uns gern entgegen.
-(Balduin Bählamm)
-Wilhelm Busch, 15.4.1832 bis 9.1.1908, deutscher Dichter, Zeichner und
-Maler.
-Primärthema: Ärger
-Autor/Quelle: Busch, Wilhelm
-Jahr: 1883
-
-
-
-
-
 Himmelhoch jauchzend, / Zum Tode betrübt - / Glücklich allein / Ist die
 Seele, die liebt.
 (Egmont, Dritter Aufzug, Klärchens Wohnung)
@@ -1161,7 +1137,7 @@ Wenn man erfolgreich ist, dann überschlagen sich die Freunde, aber erst
 wenn man einen Mißerfolg hat, freuen sie sich wirklich.
 Harry Spencer Truman, 8.5.1884 bis 26.12.1972, amerikanischer Politiker
 (Demokratische Partei), 33. Präsident der USA (1945 bis 1953).
-Primärthema: Mißerfolg
+Primärthema: Misserfolg
 Autor/Quelle: Truman, Harry S.
 
 
@@ -1205,7 +1181,7 @@ Autor/Quelle: Schleiermacher, F.
 Kleine Freunde können sich als große erweisen.
 (Der Löwe und die Maus)
 Äsop, Mitte des 6. Jahrhunderts v.Chr., griechischer Fabeldichter.
-Primärthema: Freund
+Primärthema: Freundschaft
 Autor/Quelle: Äsop
 
 
@@ -1225,7 +1201,7 @@ Autor/Quelle: Buddha
 Du weißt nicht, wer dein Freund oder dein Feind ist, bis das Eis bricht.
 (Sprichwort)
 Sprichwort der Eskimos.
-Primärthema: Freund
+Primärthema: Freundschaft
 Autor/Quelle: Eskimo
 
 
@@ -1235,7 +1211,7 @@ Ein Freund ist schwer zu finden und leicht zu verlieren.
 (Sprichwort)
 Sprichwort, Redensart oder Bezeichnung (siehe Klammertext) aus
 Frankreich.
-Primärthema: Freund
+Primärthema: Freundschaft
 Autor/Quelle: Frankreich
 
 
@@ -1303,7 +1279,7 @@ Wem der große Wurf gelungen, / Eines Freundes Freund zu sein; / Wer ein
 holdes Weib errungen, / Mische seinen Jubel ein!
 (An die Freude)
 Friedrich von Schiller, 10.11.1759 bis 9.5.1805, deutscher Dichter.
-Primärthema: Freund
+Primärthema: Freundschaft
 Autor/Quelle: Schiller, Friedrich
 Jahr: 1785
 
@@ -1324,7 +1300,7 @@ grundverschieden sein.
 (Gedanken)
 Sully Prudhomme (eigentlich: René François Armand P.) 1839 bis 1907,
 französischer Dichter, Nobelpreis für Literatur (1901).
-Primärthema: Freund
+Primärthema: Freundschaft
 Autor/Quelle: Sully Prudhomme
 
 
@@ -1548,13 +1524,6 @@ Primärthema: Humor
 Autor/Quelle: Roth, Eugen
 Jahr: 1959
 
-
-
-
-Der wahre Humor ist schwarz mit einer schmalen weißen Borte.
-Ronald W. Searle, 3.3.1920, englischer Zeichner.
-Primärthema: Schwarzer Humor
-Autor/Quelle: Searle, Ronald W.
 
 
 
@@ -2582,15 +2551,6 @@ Autor/Quelle: Hemingway, Ernest
 
 
 
-Er heiratete sie, weil sie ihn liebte; sie liebte ihn, weil er sie
-heiratete.
-Jean Paul (eigentlich: Johann Paul Friedrich Richter), 21.3.1763 bis
-14.11.1825, deutscher Dichter.
-Primärthema: Heirat
-Autor/Quelle: Jean Paul
-
-
-
 
 
 Die Familie ist die Urzelle des gesellschaftlichen Lebens. Sie ist die
@@ -3031,17 +2991,6 @@ Jahr: 1598
 
 
 
-
-Ein übermütiger Sieger mag seinen eigenen Untergang herbeiführen.
-(Fabeln, Die beiden Hähne)
-Jean de La Fontaine, 8.7.1621 bis 13.4.1695, französischer Dichter.
-Primärthema: Übermut
-Autor/Quelle: La Fontaine, Jean de
-
-
-
-
-
 Kein Vormarsch ist so schwer wie der zurück zur Vernunft.
 Bertolt Brecht (eigentlich: Eugen Berthold Friedrich B.), 10.2.1898 bis
 14.8.1956, deutscher Schriftsteller und Regisseur.
@@ -3198,15 +3147,6 @@ Iljitsch Wladimir Lenin (eigentlich: W. I. Uljanow), 22.4.1870 bis
 Primärthema: Kontrolle
 Autor/Quelle: Lenin, Wladimir I.
 
-
-
-
-Zuviel Vertrauen ist häufig Dummheit, zuviel Mißtrauen ist immer
-Unglück.
-Johann Nepomuk Nestroy, 7.12.1801 bis 25.5.1862, österreichischer
-Dichter und Schauspieler.
-Primärthema: Mißtrauen
-Autor/Quelle: Nestroy, Johann N.
 
 
 

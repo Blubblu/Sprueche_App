@@ -30,11 +30,11 @@ import java.util.List;
 import vhbandroidprogrammierung.de.spruecheapp.Activities.MainActivity;
 import vhbandroidprogrammierung.de.spruecheapp.Config;
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreatorCustom;
+import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerViewCreatorCustom;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
-import vhbandroidprogrammierung.de.spruecheapp.Saying;
-import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
-import vhbandroidprogrammierung.de.spruecheapp.SayingCategory;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.SayingAuthor;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.SayingCategory;
 
 public class UserSayingsFragment extends Fragment implements View.OnClickListener {
 
@@ -109,7 +109,6 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        //TODO FAB action
         createUserSayingDialog();
     }
 
@@ -140,8 +139,7 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
 
     /**
      * Elmente im RecyclerView können nach links oder rechts weggewischt werden
-     * TODO: Gelöschte Elemente müssen wirklich gelöscht werden, im Moment tauchen sie nach dem swipe wieder auf
-     *
+        *
      * @param rv die RecyclerView
      */
     public void initSwipeableRecyclerViewTouchListener(RecyclerView rv) {
@@ -280,6 +278,11 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         updateSayingList();
     }
 
+    /**
+     * Erlaubt dem User einen neuen Spruch per Dialog zu erstellen.
+     * Er muss den Spruch an sich eingeben,
+     * sowie eine Kategorie auswählen. Entweder eine bestehende, oder eine neue eintippen.
+     */
     public void createUserSayingDialog() {
 
         final View layout = LayoutInflater.from(context).inflate(R.layout.user_saying_dialog, null);
@@ -301,17 +304,50 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
                 String saying = sayingName.getEditText().getText().toString();
                 String newCategory = newCategoryName.getEditText().getText().toString();
                 boolean newCategorySelected = newCategoryName.getVisibility() == View.VISIBLE;
-                int spinnerSelectionIndex = spinner.getSelectedItemPosition();
                 String spinnerSelectedCategoryText = spinner.getSelectedItem().toString();
 
                 if ((!saying.equals("") && ((newCategorySelected && !newCategory.equals("")) || !newCategorySelected))) {
                     Log.i(TAG, "onClick: Dialog setPositiveButton conditions valid");
 
                     Saying newSaying = new Saying(saying);
-                    newSaying.setSayingAuthor(new SayingAuthor(USER_SAYING_CATEGORY));
+
+
+                    /*
+                    Author zuweisen
+                    Wenn es den User schon in der Autorenliste gibt, einfach dem neuen Spruch dieses Objekt zuweisen,
+                    ansonsten ein neues erstellen.
+                    Dazu durch die Authorenliste iterieren und (ggf) den Index des "User Objekts" merken.
+                     */
+                    boolean userAsAuthorExists = false;
+                    int userAsAuthorIndex = -1;
+
+                    for (int i = 0; i < activity.getAuthorList().size(); i++) {
+                        if (activity.getAuthorList().get(i).getAuthorName().equals(USER_SAYING_CATEGORY)) {
+                            userAsAuthorExists = true;
+                            userAsAuthorIndex = i;
+                        }
+                    }
+
+                    SayingAuthor userAsAuthor = null;
+                    if (!userAsAuthorExists) {
+                        userAsAuthor =  new SayingAuthor(USER_SAYING_CATEGORY);
+                    } else {
+                        userAsAuthor = activity.getAuthorList().get(userAsAuthorIndex);
+                    }
+
+                    newSaying.setSayingAuthor(userAsAuthor);
+
+
+                    /*
+                    Kategorie zuweisen
+                    Entweder wird eine neue Kategorie erstellt, oder die bestehende Liste wird nach der User-Auswahl
+                    aus dem Dropdown durchsucht und dieses Objekt zugewiesen.
+                     */
 
                     if (newCategorySelected) {
-                        newSaying.setSayingCategory(new SayingCategory(newCategory));
+                        SayingCategory newSayingCategory = new SayingCategory(newCategory);
+                        newSaying.setSayingCategory(newSayingCategory);
+                        activity.getCategoryList().add(newSayingCategory);
                     } else {
                         SayingCategory tmpCategory;
 
@@ -327,7 +363,11 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
                             " Category: " + newSaying.getSayingCategory().getCategoryName() +
                             " Author: " + newSaying.getSayingAuthor().getAuthorName());
                     activity.getSayingList().add(newSaying);
+                    activity.sortLists(true, true, true);
                     updateSayingList();
+
+                } else {
+                    activity.toaster("Deine Eingaben waren nicht vollständig\nVersuch\'s nochmal", true);
                 }
             }
 
@@ -336,15 +376,12 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
             @Override
             public void onClick(DialogInterface dialog, int id) {
 
-
             }
         }).create();
         dialog.show();
     }
 
     private void initDialogSpinner(View layout, Spinner spinner, final TextInputLayout tip) {
-
-        //TODO: von MainActivity alle verfügbaren SayingCategory-Objekte holen
 
         // Erst alle Kategorie Namen aus der MainActivity holen...
         this.categoryList = new ArrayList<String>();
@@ -359,7 +396,7 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         }
 
         // ...am Ende die Möglichkeit, eine neue Kategorie zu anzulegen
-        spinnerArray.add("+ NEUE KATEGORIE");
+        spinnerArray.add(0, "+ NEUE KATEGORIE");
 
 
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,
@@ -370,13 +407,13 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             /*
-            Herausfinden, welches item ausgewählt wurde. Wenn es das letzte ist (Neue Kategorie), TODO: ...
+            Herausfinden, welches item ausgewählt wurde. Wenn es das letzte ist (Neue Kategorie)
              */
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 // TextInputLayout für neue Kategorie sichtbar machen, wenn "Neue Kategorie" ausgewählt wurde
-                if (i == spinnerArray.size() - 1) {
+                if (i == 0) {
                     tip.setVisibility(View.VISIBLE);
                     tip.requestFocus();
 
@@ -389,7 +426,6 @@ public class UserSayingsFragment extends Fragment implements View.OnClickListene
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
     }

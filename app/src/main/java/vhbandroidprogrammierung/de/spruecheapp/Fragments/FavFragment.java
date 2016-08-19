@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewCreatorCustom;
+import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerViewCreatorCustom;
 import vhbandroidprogrammierung.de.spruecheapp.RecyclerViewStuff.RecyclerAdapter;
-import vhbandroidprogrammierung.de.spruecheapp.Saying;
-import vhbandroidprogrammierung.de.spruecheapp.SayingAuthor;
-import vhbandroidprogrammierung.de.spruecheapp.SayingCategory;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.SayingAuthor;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.SayingCategory;
 
 public class FavFragment extends Fragment {
 

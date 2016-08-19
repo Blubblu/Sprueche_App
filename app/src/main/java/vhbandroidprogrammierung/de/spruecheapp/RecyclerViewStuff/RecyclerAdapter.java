@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import vhbandroidprogrammierung.de.spruecheapp.R;
-import vhbandroidprogrammierung.de.spruecheapp.Saying;
+import vhbandroidprogrammierung.de.spruecheapp.SayingDataObjects.Saying;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
